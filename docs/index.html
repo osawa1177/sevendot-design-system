@@ -134,7 +134,8 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
 
 .main {
   flex: 1;
-  margin-left: 248px;
+  /* サイドバー(248px)を除いた領域の中央にコンテンツを配置 */
+  margin-left: max(248px, calc((100vw - 712px) / 2));
   padding: var(--space-2xl) var(--space-xl);
   max-width: 960px;
 }

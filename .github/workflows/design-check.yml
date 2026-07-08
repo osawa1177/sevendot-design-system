@@ -1,0 +1,26 @@
+name: Design System Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  design-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate design contracts
+        run: npm run design:validate
+
+      - name: Lint generated UI
+        run: npm run design:lint

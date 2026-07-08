@@ -1,0 +1,15 @@
+{
+  "id": "alert",
+  "name": "Alert",
+  "import": "import { Alert } from \"@sevendot/ui\"",
+  "props": {
+    "tone": { "type": "enum", "values": ["info", "success", "warning", "danger"], "default": "info" },
+    "title": { "type": "string" }
+  },
+  "a11y": ["danger/warning は role=alert、それ以外は role=status"],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "usage": {
+    "do": ["文言はユーザー主語＋次の行動", "残る通知に使う"],
+    "dont": ["一時通知に使う（Toastの領分）", "1画面に3個以上"]
+  }
+}

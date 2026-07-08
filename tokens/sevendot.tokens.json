@@ -1,0 +1,72 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "primary": {
+      "50":  { "$type": "color", "$value": "#eef2ff" },
+      "100": { "$type": "color", "$value": "#e0e7ff" },
+      "300": { "$type": "color", "$value": "#a5b4fc" },
+      "500": { "$type": "color", "$value": "#6366f1" },
+      "600": { "$type": "color", "$value": "#4f46e5" },
+      "700": { "$type": "color", "$value": "#4338ca" }
+    },
+    "neutral": {
+      "0":   { "$type": "color", "$value": "#ffffff" },
+      "50":  { "$type": "color", "$value": "#f8fafc" },
+      "100": { "$type": "color", "$value": "#f1f5f9" },
+      "200": { "$type": "color", "$value": "#e2e8f0" },
+      "500": { "$type": "color", "$value": "#64748b" },
+      "700": { "$type": "color", "$value": "#334155" },
+      "900": { "$type": "color", "$value": "#0f172a" }
+    },
+    "success": {
+      "100": { "$type": "color", "$value": "#dcfce7" },
+      "600": { "$type": "color", "$value": "#16a34a" },
+      "700": { "$type": "color", "$value": "#15803d" }
+    },
+    "warning": {
+      "100": { "$type": "color", "$value": "#fef9c3" },
+      "700": { "$type": "color", "$value": "#a16207" }
+    },
+    "danger": {
+      "100": { "$type": "color", "$value": "#fee2e2" },
+      "600": { "$type": "color", "$value": "#dc2626" },
+      "700": { "$type": "color", "$value": "#b91c1c" }
+    }
+  },
+  "spacing": {
+    "unit": { "$type": "dimension", "$value": "4px", "$description": "全スペーシングはこの倍数" },
+    "xs": { "$type": "dimension", "$value": "4px" },
+    "sm": { "$type": "dimension", "$value": "8px" },
+    "md": { "$type": "dimension", "$value": "16px" },
+    "lg": { "$type": "dimension", "$value": "24px" },
+    "xl": { "$type": "dimension", "$value": "32px" },
+    "2xl": { "$type": "dimension", "$value": "48px" }
+  },
+  "radius": {
+    "sm": { "$type": "dimension", "$value": "4px" },
+    "md": { "$type": "dimension", "$value": "8px" },
+    "lg": { "$type": "dimension", "$value": "12px" },
+    "full": { "$type": "dimension", "$value": "9999px" }
+  },
+  "typography": {
+    "fontFamily": { "$type": "fontFamily", "$value": ["Inter", "Noto Sans JP", "sans-serif"] },
+    "size": {
+      "xs": { "$type": "dimension", "$value": "12px" },
+      "sm": { "$type": "dimension", "$value": "14px" },
+      "base": { "$type": "dimension", "$value": "16px" },
+      "lg": { "$type": "dimension", "$value": "18px" },
+      "xl": { "$type": "dimension", "$value": "20px" },
+      "2xl": { "$type": "dimension", "$value": "24px" }
+    },
+    "weight": {
+      "regular": { "$type": "fontWeight", "$value": 400 },
+      "medium": { "$type": "fontWeight", "$value": 500 },
+      "semibold": { "$type": "fontWeight", "$value": 600 }
+    }
+  },
+  "shadow": {
+    "sm": { "$type": "shadow", "$value": "0 1px 2px 0 rgb(0 0 0 / 0.05)" },
+    "md": { "$type": "shadow", "$value": "0 4px 6px -1px rgb(0 0 0 / 0.1)" },
+    "overlay": { "$type": "shadow", "$value": "0 20px 25px -5px rgb(0 0 0 / 0.1)", "$description": "モーダル等オーバーレイ限定" }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "button",
+  "name": "Button",
+  "import": "import { Button } from \"@sevendot/ui\"",
+  "props": {
+    "variant": { "type": "enum", "values": ["primary", "secondary", "ghost", "danger"], "default": "primary" },
+    "size": { "type": "enum", "values": ["sm", "md", "lg"], "default": "md" },
+    "fullWidth": { "type": "boolean", "default": false }
+  },
+  "variants": {
+    "primary": { "tokenRefs": { "bg": "color.primary.600", "text": "color.neutral.0", "radius": "radius.md" } },
+    "secondary": { "tokenRefs": { "bg": "color.neutral.0", "border": "color.neutral.200", "radius": "radius.md" } },
+    "danger": { "tokenRefs": { "bg": "color.danger.600", "text": "color.neutral.0", "radius": "radius.md" } }
+  },
+  "a11y": ["icon-only の場合 aria-label 必須", "focus-visible リング標準装備"],
+  "rules": ["A11Y_ICON_ONLY_NEEDS_ARIA", "UI_NO_EMOJI_LABEL"],
+  "usage": {
+    "do": ["1画面に primary は1つ", "ラベルは動詞で始める"],
+    "dont": ["primary を並べない", "リンク遷移に Button を使わない（aタグを使う）"]
+  }
+}

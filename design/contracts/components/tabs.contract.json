@@ -1,0 +1,17 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "import": "import { Tabs } from \"@sevendot/ui\"",
+  "props": {
+    "items": { "type": "TabItem[]", "required": true, "description": "{ id, label } の配列。2〜5個" },
+    "value": { "type": "string", "description": "controlled 用" },
+    "defaultValue": { "type": "string" },
+    "onChange": { "type": "(id: string) => void" }
+  },
+  "a11y": ["role=tablist / role=tab / aria-selected を実装済み"],
+  "rules": [],
+  "usage": {
+    "do": ["同じ対象の別ビューの切替に使う", "ラベルは名詞2〜6文字"],
+    "dont": ["ページ遷移に使う", "タブを6個以上並べる"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "import": "import { Badge } from \"@sevendot/ui\"",
+  "props": {
+    "tone": { "type": "enum", "values": ["neutral", "primary", "success", "warning", "danger"], "default": "neutral" }
+  },
+  "tokenRefs": { "radius": "radius.full" },
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "usage": {
+    "do": ["色は意味で選ぶ", "テキストは2〜6文字"],
+    "dont": ["装飾目的の色選択", "1要素に3個以上のBadge"]
+  }
+}

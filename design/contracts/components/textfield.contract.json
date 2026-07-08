@@ -1,0 +1,17 @@
+{
+  "id": "textfield",
+  "name": "TextField",
+  "import": "import { TextField } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "helperText": { "type": "string" },
+    "error": { "type": "string", "description": "指定するとエラー表示" }
+  },
+  "tokenRefs": { "border": "color.neutral.200", "errorBorder": "color.danger.600", "radius": "radius.md" },
+  "a11y": ["label と input を htmlFor で紐付け", "error は aria-describedby + aria-invalid"],
+  "rules": ["FORM_NO_PLACEHOLDER_ONLY_LABEL"],
+  "usage": {
+    "do": ["helperText で制約を事前告知", "エラーは欄の直下に表示"],
+    "dont": ["placeholder をラベル代わりにする", "フォームエラーをトーストで出す"]
+  }
+}

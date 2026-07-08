@@ -1,0 +1,83 @@
+{
+  "$schema": "./schemas/rules.schema.json",
+  "version": 1,
+  "rules": [
+    {
+      "id": "COLOR_NO_RAW_PALETTE",
+      "severity": "error",
+      "detector": "class-regex",
+      "pattern": "\\b(?:bg|text|border)-(?:blue|red|green|yellow|purple|pink|orange|teal|cyan|lime|emerald|violet|fuchsia|rose|sky)-\\d{2,3}\\b",
+      "message": "生のパレット色は禁止。primary / neutral / success / warning / danger のセマンティックカラーを使う",
+      "alternative": "bg-primary-500, text-danger-600 など"
+    },
+    {
+      "id": "DECOR_NO_CARD_COLOR_BAR",
+      "severity": "error",
+      "detector": "class-regex",
+      "pattern": "\\bborder-t-4\\b",
+      "message": "カード上部のカラーバーは禁止（AIっぽい装飾）",
+      "alternative": "border border-neutral-200 のみでカードを構成"
+    },
+    {
+      "id": "ELEVATION_NO_HEAVY_SHADOW",
+      "severity": "error",
+      "detector": "class-regex",
+      "pattern": "\\bshadow-(?:lg|xl|2xl)\\b",
+      "message": "shadow-lg 以上はオーバーレイ（Modal等）限定。通常UIでは shadow-sm / shadow-md まで",
+      "alternative": "shadow-sm / shadow-md",
+      "conditional": "Modal / Dropdown 内部での使用は許可"
+    },
+    {
+      "id": "SPACE_NO_ODD_PADDING",
+      "severity": "warn",
+      "detector": "class-regex",
+      "pattern": "\\b[pm][trblxy]?-(?:0\\.5|1\\.5|2\\.5|3\\.5|5|7|9|11)\\b",
+      "message": "4pxグリッドから外れるスペーシング。4の倍数（1,2,3,4,6,8,10,12...）を使う",
+      "alternative": "p-1 / p-2 / p-4 / p-6 / p-8"
+    },
+    {
+      "id": "A11Y_ICON_ONLY_NEEDS_ARIA",
+      "severity": "error",
+      "detector": "manual",
+      "message": "icon-only の Button には aria-label が必須",
+      "alternative": "<Button aria-label=\"閉じる\" ...>"
+    },
+    {
+      "id": "TEXT_NO_PURE_BLACK",
+      "severity": "warn",
+      "detector": "class-regex",
+      "pattern": "\\btext-black\\b",
+      "message": "純黒は使わない。text-neutral-900 を使う",
+      "alternative": "text-neutral-900"
+    },
+    {
+      "id": "DECOR_NO_GRADIENT_BG",
+      "severity": "warn",
+      "detector": "class-regex",
+      "pattern": "\\bbg-gradient-to-\\w+\\b",
+      "message": "グラデーション背景は原則禁止（ブランド確定領域を除く）",
+      "alternative": "bg-neutral-50 / bg-primary-50"
+    },
+    {
+      "id": "FORM_NO_PLACEHOLDER_ONLY_LABEL",
+      "severity": "error",
+      "detector": "manual",
+      "message": "placeholder をラベル代わりにしない。TextField の label プロパティを必ず使う",
+      "alternative": "<TextField label=\"メールアドレス\" placeholder=\"you@example.com\" />"
+    },
+    {
+      "id": "UI_NO_EMOJI_LABEL",
+      "severity": "warn",
+      "detector": "manual",
+      "message": "ボタン・見出し等のUIラベルに絵文字を使わない",
+      "alternative": "アイコンが必要なら lucide-react を使用"
+    },
+    {
+      "id": "COMP_NO_REINVENT",
+      "severity": "error",
+      "detector": "manual",
+      "message": "@sevendot/ui に存在するコンポーネントを素のHTMLで再実装しない",
+      "alternative": "import { Button } from \"@sevendot/ui\""
+    }
+  ]
+}

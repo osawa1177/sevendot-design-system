@@ -1,0 +1,14 @@
+{
+  "id": "card",
+  "name": "Card",
+  "import": "import { Card, CardHeader, CardBody } from \"@sevendot/ui\"",
+  "props": {
+    "interactive": { "type": "boolean", "default": false, "description": "ホバーで shadow-md。リンクカード用" }
+  },
+  "tokenRefs": { "bg": "color.neutral.0", "border": "color.neutral.200", "radius": "radius.lg" },
+  "rules": ["DECOR_NO_CARD_COLOR_BAR", "ELEVATION_NO_HEAVY_SHADOW"],
+  "usage": {
+    "do": ["既定は影なし・全周ボーダー", "ネストは divide-y で表現"],
+    "dont": ["カードの中にカード", "上部カラーバー装飾"]
+  }
+}

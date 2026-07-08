@@ -1,0 +1,20 @@
+{
+  "name": "sevendot-design-system",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/ui",
+    "design-mock"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w design-mock",
+    "build": "npm run build -w design-mock",
+    "mcp": "npm run mcp -w design-mock",
+    "design:lint": "node scripts/design/lint-generated.mjs",
+    "design:validate": "node scripts/design/validate.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osawa1177/sevendot-design-system.git"
+  }
+}

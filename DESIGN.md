@@ -5,9 +5,12 @@
 
 ## Brand Identity
 
-- プロダクト名: Sevendot（仮）
-- トーン: 誠実・軽快・押し付けない
-- プライマリカラー: Indigo（`color.primary.*`）
+- ブランド名: SEVEN DOT.（https://seven-dot.jp/）
+- タグライン: YOUR PERSONAL DESIGN PARTNER
+- トーン: 誠実・精緻・押し付けない。幾何学的でクリーン
+- プライマリカラー: Seven Dot Blue `#003ADB`（`color.primary.600`）
+- ダークネイビー `#1A2332`（`surface.dark`）を面として使い、有彩色はブルーに集中させる
+- 英字見出しは Helvetica Neue Bold、和文は Noto Sans JP
 - UIは黒子。コンテンツが主役
 
 ## 10原則（非交渉）

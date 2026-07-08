@@ -1,0 +1,21 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "import": "import { Accordion } from \"@sevendot/ui\"",
+  "props": {
+    "items": { "type": "AccordionItem[]", "required": true, "description": "{ id, title, content } の配列" },
+    "multiple": { "type": "boolean", "default": false, "description": "複数同時展開を許可" },
+    "defaultOpen": { "type": "string[]", "description": "初期で開くアイテムID" }
+  },
+  "a11y": [
+    "ボタンに aria-expanded / aria-controls",
+    "パネルに role=region / aria-labelledby",
+    "シェブロンは aria-hidden"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.neutral.200", "color.neutral.500", "color.neutral.700", "color.neutral.900", "radius.lg"],
+  "usage": {
+    "do": ["FAQや補足情報の整理に使う", "見出しは中身が推測できる名詞句にする"],
+    "dont": ["フォームの必須項目を隠す", "シェブロンとプラス記号を併用する"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "select",
+  "name": "Select",
+  "import": "import { Select } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "helperText": { "type": "string" },
+    "error": { "type": "string" },
+    "options": { "type": "array", "note": "{ value, label, disabled? }[]。children で option を渡す場合は省略可" },
+    "disabled": { "type": "boolean", "default": false }
+  },
+  "tokenRefs": {
+    "bg": "color.neutral.0",
+    "text": "color.neutral.900",
+    "border": "color.neutral.200",
+    "borderError": "color.danger.600",
+    "radius": "radius.md"
+  },
+  "a11y": ["label は htmlFor で select と関連付け", "error 時は aria-invalid と aria-describedby を付与", "シェブロンSVGは aria-hidden"],
+  "rules": ["FORM_NO_PLACEHOLDER_ONLY_LABEL", "COLOR_NO_RAW_PALETTE", "COMP_NO_REINVENT"],
+  "usage": {
+    "do": ["未選択の初期値は value=\"\" の先頭 option で表す", "高さは TextField と揃える"],
+    "dont": ["label を省略して placeholder で代替しない", "選択肢が多すぎる用途に使わない"]
+  }
+}

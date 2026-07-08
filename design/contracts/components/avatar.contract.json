@@ -1,0 +1,17 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "import": "import { Avatar } from \"@sevendot/ui\"",
+  "props": {
+    "src": { "type": "string", "description": "画像URL。指定時は img を描画" },
+    "alt": { "type": "string", "description": "画像の代替テキスト / イニシャル時の aria-label（人物名）" },
+    "initials": { "type": "string", "description": "画像が無いときのイニシャル（1〜2文字）" },
+    "size": { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "sm=32px / md=40px / lg=48px" }
+  },
+  "tokenRefs": { "bg": "color.primary.50", "text": "color.primary.600", "radius": "radius.full" },
+  "rules": ["COLOR_NO_RAW_PALETTE", "A11Y_ICON_ONLY_NEEDS_ARIA"],
+  "usage": {
+    "do": ["画像には alt を必ず付ける", "イニシャルは role=\"img\" + aria-label で人物名を伝える", "形は rounded-full"],
+    "dont": ["人物ごとに背景色を変える", "3文字以上のイニシャル", "中間サイズを作る"]
+  }
+}

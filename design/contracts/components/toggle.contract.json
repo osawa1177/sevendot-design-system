@@ -1,0 +1,25 @@
+{
+  "id": "toggle",
+  "name": "Toggle",
+  "import": "import { Toggle } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "description": { "type": "string" },
+    "checked": { "type": "boolean", "note": "controlled" },
+    "defaultChecked": { "type": "boolean", "default": false },
+    "onChange": { "type": "function", "note": "(checked: boolean) => void" },
+    "disabled": { "type": "boolean", "default": false }
+  },
+  "tokenRefs": {
+    "bgOn": "color.primary.600",
+    "bgOff": "color.neutral.200",
+    "knob": "color.neutral.0",
+    "radius": "radius.full"
+  },
+  "a11y": ["role=\"switch\" と aria-checked を維持", "Space / Enter で切替", "label は aria-labelledby、description は aria-describedby"],
+  "rules": ["COLOR_NO_RAW_PALETTE", "COMP_NO_REINVENT", "UI_NO_EMOJI_LABEL"],
+  "usage": {
+    "do": ["即時反映される設定に使う", "ON は primary-600 固定"],
+    "dont": ["フォーム送信で確定する二択には使わない", "ON色を他の有彩色にしない"]
+  }
+}

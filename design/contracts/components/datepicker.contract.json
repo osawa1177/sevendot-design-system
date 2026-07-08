@@ -1,0 +1,27 @@
+{
+  "id": "datepicker",
+  "name": "DatePicker",
+  "import": "import { DatePicker } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "helperText": { "type": "string" },
+    "error": { "type": "string" },
+    "min": { "type": "string", "note": "YYYY-MM-DD" },
+    "max": { "type": "string", "note": "YYYY-MM-DD" },
+    "disabled": { "type": "boolean", "default": false }
+  },
+  "tokenRefs": {
+    "bg": "color.neutral.0",
+    "text": "color.neutral.900",
+    "border": "color.neutral.200",
+    "borderError": "color.danger.600",
+    "radius": "radius.md"
+  },
+  "a11y": ["label は htmlFor で input と関連付け", "error 時は aria-invalid と aria-describedby を付与"],
+  "rules": ["FORM_NO_PLACEHOLDER_ONLY_LABEL", "COLOR_NO_RAW_PALETTE", "COMP_NO_REINVENT"],
+  "notes": ["簡易版。カスタムカレンダーUIは将来拡張", "日付範囲は native の min / max を使う"],
+  "usage": {
+    "do": ["TextField / Select と高さ・角丸を揃える", "範囲制限は min / max を使う"],
+    "dont": ["label を省略して placeholder で代替しない", "独自カレンダーUIを足さない"]
+  }
+}

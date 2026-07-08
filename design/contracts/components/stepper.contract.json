@@ -1,0 +1,20 @@
+{
+  "id": "stepper",
+  "name": "Stepper",
+  "import": "import { Stepper } from \"@sevendot/ui\"",
+  "props": {
+    "steps": { "type": "StepperStep[]", "required": true, "description": "{ label, description? } の配列。3〜5個" },
+    "current": { "type": "number", "required": true, "description": "現在ステップの index（0始まり）" }
+  },
+  "a11y": [
+    "role=list / role=listitem で構造化",
+    "現在ステップに aria-current=\"step\"",
+    "コネクタ・チェックアイコンは aria-hidden"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.primary.600", "color.neutral.100", "color.neutral.200", "color.neutral.500", "color.neutral.900", "color.neutral.0", "radius.full"],
+  "usage": {
+    "do": ["3〜5段階の手続きに使う", "完了・現在・未完了の3状態を色で分ける"],
+    "dont": ["2ステップで使う", "未来のステップを自由にクリックさせる（順序が固定の場合）"]
+  }
+}

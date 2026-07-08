@@ -1,0 +1,30 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "import": "import { RadioGroup, Radio } from \"@sevendot/ui\"",
+  "exports": ["RadioGroup", "Radio"],
+  "props": {
+    "RadioGroup": {
+      "legend": { "type": "string", "required": true },
+      "name": { "type": "string", "required": true }
+    },
+    "Radio": {
+      "label": { "type": "string", "required": true },
+      "value": { "type": "string" },
+      "checked": { "type": "boolean", "note": "controlled" },
+      "defaultChecked": { "type": "boolean", "note": "uncontrolled" },
+      "disabled": { "type": "boolean", "default": false }
+    }
+  },
+  "tokenRefs": {
+    "accent": "color.primary.600",
+    "border": "color.neutral.200",
+    "text": "color.neutral.900"
+  },
+  "a11y": ["fieldset + legend でグループ化", "name はグループで共有", "label は htmlFor で input と関連付け"],
+  "rules": ["COLOR_NO_RAW_PALETTE", "COMP_NO_REINVENT", "UI_NO_EMOJI_LABEL"],
+  "usage": {
+    "do": ["必ず RadioGroup で囲む", "name はグループで同一にする"],
+    "dont": ["Radio を単独で置かない", "二択の ON/OFF には Toggle を使う"]
+  }
+}

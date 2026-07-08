@@ -1,0 +1,31 @@
+{
+  "id": "dropdown",
+  "name": "Dropdown",
+  "import": "import { Dropdown } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string" },
+    "items": { "type": "array", "of": "{ id: string; label: string; tone?: \"default\" | \"danger\"; onSelect?: () => void }" }
+  },
+  "a11y": [
+    "トリガーに aria-haspopup=true / aria-expanded",
+    "メニューに role=menu、各項目に role=menuitem",
+    "外側クリックと Escape で閉じる"
+  ],
+  "rules": [
+    "COLOR_NO_RAW_PALETTE",
+    "ELEVATION_NO_HEAVY_SHADOW"
+  ],
+  "tokenRefs": [
+    "color.neutral.900",
+    "color.neutral.700",
+    "color.neutral.200",
+    "color.danger.600",
+    "color.neutral.0",
+    "radius.md",
+    "shadow.md"
+  ],
+  "usage": {
+    "do": ["操作（アクション）の一覧に使う", "破壊的操作は tone=\"danger\" にする"],
+    "dont": ["フォームの値選択に使う（Selectの領分）", "8件以上の項目を詰め込む"]
+  }
+}

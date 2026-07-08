@@ -1,0 +1,20 @@
+{
+  "id": "list",
+  "name": "List",
+  "import": "import { List, ListItem } from \"@sevendot/ui\"",
+  "props": {
+    "List": { "type": "element", "description": "行を並べる容器。区切りは divide-y" },
+    "ListItem": {
+      "leading": { "type": "ReactNode", "description": "行頭の要素（Avatar・アイコン）" },
+      "title": { "type": "ReactNode", "required": true, "description": "主テキスト" },
+      "description": { "type": "ReactNode", "description": "補足テキスト" },
+      "trailing": { "type": "ReactNode", "description": "行末の要素（Badge・操作）" }
+    }
+  },
+  "tokenRefs": { "border": "color.neutral.200" },
+  "rules": ["COLOR_NO_RAW_PALETTE", "SPACE_NO_ODD_PADDING"],
+  "usage": {
+    "do": ["区切りは divide-y のみ", "余白は px-4 py-3 で統一", "leading/trailing は shrink-0"],
+    "dont": ["各行を個別のカードにする", "行ごとに高さや余白を変える"]
+  }
+}

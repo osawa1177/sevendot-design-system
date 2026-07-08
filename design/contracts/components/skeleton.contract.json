@@ -1,0 +1,20 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "import": "import { Skeleton } from \"@sevendot/ui\"",
+  "props": {
+    "variant": { "type": "enum", "values": ["text", "circle", "rect"], "default": "text" },
+    "width": { "type": "string" },
+    "height": { "type": "string" }
+  },
+  "a11y": [
+    "容器に role=status aria-busy=true",
+    "sr-only の「読み込み中」で状態を伝える"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.neutral.200", "radius.md", "radius.full"],
+  "usage": {
+    "do": ["実物と同じ寸法に合わせて位置ズレを防ぐ", "ページ骨組みをまとめて見せる"],
+    "dont": ["1秒未満で終わる箇所に使う", "tone で色分けする"]
+  }
+}

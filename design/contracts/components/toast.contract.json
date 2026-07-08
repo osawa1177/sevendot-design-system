@@ -1,0 +1,32 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "import": "import { Toast } from \"@sevendot/ui\"",
+  "props": {
+    "tone": { "type": "enum", "values": ["success", "info", "warning", "danger"], "default": "info" },
+    "message": { "type": "string" },
+    "onClose": { "type": "function" }
+  },
+  "a11y": [
+    "success/info は role=status aria-live=polite、warning/danger は role=alert aria-live=assertive",
+    "閉じるボタンは icon-only なので aria-label=\"閉じる\""
+  ],
+  "rules": [
+    "COLOR_NO_RAW_PALETTE",
+    "ELEVATION_NO_HEAVY_SHADOW",
+    "A11Y_ICON_ONLY_NEEDS_ARIA",
+    "UI_NO_EMOJI_LABEL"
+  ],
+  "tokenRefs": [
+    "color.primary.700",
+    "color.success.700",
+    "color.warning.700",
+    "color.danger.700",
+    "radius.md",
+    "shadow.md"
+  ],
+  "usage": {
+    "do": ["消えてよい操作結果に使う", "自動消去は呼び出し側で onClose を制御する"],
+    "dont": ["残すべきお知らせに使う（Alertの領分）", "同時に複数積み上げる"]
+  }
+}

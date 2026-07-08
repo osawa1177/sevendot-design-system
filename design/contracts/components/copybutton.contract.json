@@ -1,0 +1,26 @@
+{
+  "id": "copybutton",
+  "name": "CopyButton",
+  "import": "import { CopyButton } from \"@sevendot/ui\"",
+  "props": {
+    "text": { "type": "string" },
+    "aria-label": { "type": "string", "default": "コピー" }
+  },
+  "a11y": [
+    "icon-only なので aria-label（既定「コピー」）で意味を伝える"
+  ],
+  "rules": [
+    "COLOR_NO_RAW_PALETTE",
+    "A11Y_ICON_ONLY_NEEDS_ARIA"
+  ],
+  "tokenRefs": [
+    "color.neutral.700",
+    "color.neutral.200",
+    "color.neutral.0",
+    "radius.md"
+  ],
+  "usage": {
+    "do": ["コピー対象の値のすぐ隣に置く", "成功はアイコン切替（2秒）でフィードバックする"],
+    "dont": ["コピー完了のトーストも同時に出す", "40px以外のサイズにする"]
+  }
+}

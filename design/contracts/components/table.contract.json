@@ -1,0 +1,19 @@
+{
+  "id": "table",
+  "name": "Table",
+  "import": "import { Table, TableHead, TableBody, TableRow, TableHeaderCell, TableCell } from \"@sevendot/ui\"",
+  "props": {
+    "Table": { "type": "element", "description": "外枠。border + rounded-lg + overflow-hidden の table ラッパ" },
+    "TableHead": { "type": "element", "description": "ヘッダ領域。bg-neutral-50 + text-xs text-neutral-500" },
+    "TableBody": { "type": "element", "description": "本文領域。行区切りは divide-y" },
+    "TableRow": { "type": "element", "description": "行。ホバーで bg-neutral-50" },
+    "TableHeaderCell": { "type": "element", "description": "見出しセル。scope=\"col\" を既定付与" },
+    "TableCell": { "type": "element", "description": "データセル。px-4 py-3" }
+  },
+  "tokenRefs": { "border": "color.neutral.200", "radius": "radius.lg" },
+  "rules": ["COLOR_NO_RAW_PALETTE", "ELEVATION_NO_HEAVY_SHADOW", "DECOR_NO_CARD_COLOR_BAR"],
+  "usage": {
+    "do": ["外枠は Card と同じ border + rounded-lg", "行区切りは divide-y で表現", "th には scope=\"col\" を付ける"],
+    "dont": ["全セルに罫線を引く", "行に装飾目的の背景色を付ける", "影で浮かせる"]
+  }
+}

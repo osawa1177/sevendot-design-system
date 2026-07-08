@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sevendot UI — 人間にも、AIにも、読めるデザインシステム</title>
-<meta name="description" content="Sevendot UI ショーケース。6コンポーネント・10ルール・40+トークンからなる、人間とAIの双方が読めるデザインシステムのカタログ。">
+<meta name="description" content="Sevendot UI ショーケース。28コンポーネント・10ルール・40+トークンからなる、人間とAIの双方が読めるデザインシステムのカタログ。">
 <style>
 /* =========================================================================
    ブランド差し替えはこのブロックのみ変更（Single Source of Truth）
@@ -352,6 +352,214 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
 .sv-alert-warning { background: var(--color-warning-100); border-color: var(--color-warning-700); color: var(--color-warning-700); }
 .sv-alert-danger  { background: var(--color-danger-100);  border-color: var(--color-danger-600); color: var(--color-danger-700); }
 
+/* ===================== 追加22コンポーネントの再現スタイル ===================== */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Select */
+.sv-select-wrap { position: relative; width: 260px; max-width: 100%; }
+.sv-select {
+  height: 40px; width: 100%; padding: 0 36px 0 12px; font-size: var(--font-size-sm);
+  border-radius: var(--radius-md); border: 1px solid var(--color-neutral-200);
+  background: var(--color-neutral-0); color: var(--color-neutral-900);
+  font-family: var(--font-family); appearance: none; -webkit-appearance: none; cursor: pointer;
+}
+.sv-select:focus { outline: 2px solid var(--color-primary-500); outline-offset: 1px; }
+.sv-select-chevron { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--color-neutral-500); pointer-events: none; }
+
+/* Checkbox / Radio */
+.sv-check-group { display: flex; flex-direction: column; gap: var(--space-sm); }
+.sv-check-row { display: flex; align-items: center; gap: var(--space-sm); font-size: var(--font-size-sm); color: var(--color-neutral-900); }
+.sv-check-row input { width: 18px; height: 18px; accent-color: var(--color-primary-600); cursor: pointer; margin: 0; flex-shrink: 0; }
+.sv-check-row label { cursor: pointer; }
+.sv-check-row.is-disabled { opacity: 0.5; }
+.sv-check-row.is-disabled input, .sv-check-row.is-disabled label { cursor: not-allowed; }
+.sv-fieldset { border: 0; }
+.sv-legend { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); margin-bottom: var(--space-sm); padding: 0; }
+
+/* Toggle */
+.sv-toggle { display: flex; align-items: flex-start; gap: var(--space-sm); }
+.sv-toggle-btn {
+  position: relative; flex-shrink: 0; width: 40px; height: 24px; border-radius: var(--radius-full);
+  background: var(--color-neutral-200); border: 0; cursor: pointer; padding: 0; transition: background-color 0.15s;
+}
+.sv-toggle-btn[aria-checked="true"] { background: var(--color-primary-600); }
+.sv-toggle-knob { position: absolute; top: 4px; left: 4px; width: 16px; height: 16px; border-radius: var(--radius-full); background: var(--color-neutral-0); transition: transform 0.15s; }
+.sv-toggle-btn[aria-checked="true"] .sv-toggle-knob { transform: translateX(16px); }
+.sv-toggle-btn:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: 2px; }
+.sv-toggle-label { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); }
+.sv-toggle-desc { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+
+/* Breadcrumb */
+.sv-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); font-size: var(--font-size-sm); list-style: none; }
+.sv-breadcrumb a { color: var(--color-neutral-700); text-decoration: none; }
+.sv-breadcrumb a:hover { color: var(--color-neutral-900); text-decoration: underline; }
+.sv-breadcrumb-sep { color: var(--color-neutral-500); }
+.sv-breadcrumb-current { color: var(--color-neutral-900); font-weight: var(--font-weight-medium); }
+
+/* Pagination */
+.sv-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); }
+.sv-page-btn {
+  min-width: 36px; height: 36px; padding: 0 var(--space-sm);
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-neutral-200); background: var(--color-neutral-0);
+  border-radius: var(--radius-md); font-size: var(--font-size-sm); color: var(--color-neutral-700);
+  font-family: var(--font-family); cursor: pointer; transition: background-color 0.15s;
+}
+.sv-page-btn:hover:not(:disabled):not(.is-current) { background: var(--color-neutral-50); }
+.sv-page-btn.is-current { background: var(--color-primary-600); color: var(--color-neutral-0); border-color: var(--color-primary-600); }
+.sv-page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sv-page-ellipsis { min-width: 24px; text-align: center; color: var(--color-neutral-500); }
+
+/* Stepper */
+.sv-stepper { display: flex; align-items: flex-start; }
+.sv-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 auto; width: 96px; }
+.sv-step-dot { width: 32px; height: 32px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); }
+.sv-step-dot svg { width: 16px; height: 16px; }
+.sv-step-dot.is-done { background: var(--color-primary-600); color: var(--color-neutral-0); }
+.sv-step-dot.is-current { border: 2px solid var(--color-primary-600); color: var(--color-primary-700); background: var(--color-neutral-0); }
+.sv-step-dot.is-todo { background: var(--color-neutral-100); color: var(--color-neutral-500); }
+.sv-step-label { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); margin-top: var(--space-xs); }
+.sv-step-desc { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+.sv-step-conn { flex: 1; height: 2px; margin-top: 16px; background: var(--color-neutral-200); min-width: 16px; }
+.sv-step-conn.is-done { background: var(--color-primary-600); }
+
+/* Accordion */
+.sv-accordion { border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); overflow: hidden; }
+.sv-accordion-item + .sv-accordion-item { border-top: 1px solid var(--color-neutral-200); }
+.sv-accordion-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm);
+  padding: var(--space-md); background: var(--color-neutral-0); border: 0; cursor: pointer;
+  font-family: var(--font-family); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-900); text-align: left;
+}
+.sv-accordion-trigger:hover { background: var(--color-neutral-50); }
+.sv-accordion-chevron { width: 16px; height: 16px; color: var(--color-neutral-500); transition: transform 0.15s; flex-shrink: 0; }
+.sv-accordion-trigger[aria-expanded="true"] .sv-accordion-chevron { transform: rotate(180deg); }
+.sv-accordion-panel { padding: 0 var(--space-md) var(--space-md); font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.sv-accordion-panel[hidden] { display: none; }
+
+/* Sidebar (ミニチュア) */
+.sv-sidebar-mini { width: 200px; height: 256px; border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); background: var(--color-neutral-0); display: flex; flex-direction: column; overflow: hidden; }
+.sv-sidebar-mini-head { padding: var(--space-md); border-bottom: 1px solid var(--color-neutral-200); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); }
+.sv-sidebar-mini-nav { flex: 1; padding: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs); }
+.sv-sidebar-mini-link { padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-md); font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.sv-sidebar-mini-link.is-active { background: var(--color-primary-50); color: var(--color-primary-700); font-weight: var(--font-weight-medium); }
+.sv-sidebar-mini-foot { padding: var(--space-md); border-top: 1px solid var(--color-neutral-200); font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+
+/* Table */
+.sv-table-wrap { border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); overflow: hidden; width: 100%; }
+.sv-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
+.sv-table thead { background: var(--color-neutral-50); }
+.sv-table th { text-align: left; padding: var(--space-sm) var(--space-md); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-neutral-500); }
+.sv-table td { padding: 12px var(--space-md); color: var(--color-neutral-700); border-top: 1px solid var(--color-neutral-200); }
+.sv-table tbody tr:hover { background: var(--color-neutral-50); }
+
+/* List */
+.sv-list { border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); overflow: hidden; width: 340px; max-width: 100%; background: var(--color-neutral-0); }
+.sv-list-item { display: flex; align-items: center; gap: 12px; padding: 12px var(--space-md); }
+.sv-list-item + .sv-list-item { border-top: 1px solid var(--color-neutral-200); }
+.sv-list-item:hover { background: var(--color-neutral-50); }
+.sv-list-body { flex: 1; min-width: 0; }
+.sv-list-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); }
+.sv-list-desc { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+.sv-list-trailing { flex-shrink: 0; }
+
+/* Tag */
+.sv-tag { display: inline-flex; align-items: center; gap: var(--space-xs); height: 24px; border-radius: var(--radius-full); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); }
+.sv-tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-700); }
+.sv-tag-primary { background: var(--color-primary-50); color: var(--color-primary-700); }
+.sv-tag:not(.has-remove) { padding: 0 var(--space-sm); }
+.sv-tag.has-remove { padding-left: var(--space-sm); padding-right: 2px; }
+.sv-tag-remove { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); }
+.sv-tag-remove:hover { background: rgb(0 0 0 / 0.06); }
+.sv-tag-remove svg { width: 12px; height: 12px; }
+
+/* Avatar */
+.sv-avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-full); background: var(--color-primary-50); color: var(--color-primary-600); font-weight: var(--font-weight-semibold); overflow: hidden; flex-shrink: 0; }
+.sv-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.sv-avatar-sm { width: 32px; height: 32px; font-size: var(--font-size-xs); }
+.sv-avatar-md { width: 40px; height: 40px; font-size: var(--font-size-sm); }
+.sv-avatar-lg { width: 48px; height: 48px; font-size: var(--font-size-base); }
+
+/* Progress */
+.sv-progress { width: 260px; max-width: 100%; }
+.sv-progress-meta { display: flex; justify-content: space-between; font-size: var(--font-size-xs); color: var(--color-neutral-500); margin-bottom: var(--space-xs); }
+.sv-progress-track { height: 8px; background: var(--color-neutral-200); border-radius: var(--radius-full); overflow: hidden; }
+.sv-progress-bar { height: 100%; background: var(--color-primary-600); border-radius: var(--radius-full); transition: width 0.3s; }
+
+/* Divider */
+.sv-divider { border: 0; border-top: 1px solid var(--color-neutral-200); }
+.sv-divider-labeled { display: flex; align-items: center; gap: var(--space-md); }
+.sv-divider-labeled::before, .sv-divider-labeled::after { content: ""; flex: 1; border-top: 1px solid var(--color-neutral-200); }
+.sv-divider-label { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+.sv-divider-vertical { align-self: stretch; width: 1px; background: var(--color-neutral-200); }
+
+/* Modal（デモ） */
+.sv-modal-overlay { position: fixed; inset: 0; background: rgb(26 26 26 / 0.5); display: flex; align-items: center; justify-content: center; padding: var(--space-md); z-index: 100; }
+.sv-modal-overlay[hidden] { display: none; }
+.sv-modal-panel { background: var(--color-neutral-0); border-radius: var(--radius-lg); width: 100%; max-width: 384px; box-shadow: var(--shadow-overlay); overflow: hidden; }
+.sv-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-sm); padding: var(--space-lg) var(--space-lg) var(--space-sm); }
+.sv-modal-title { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); }
+.sv-modal-close { border: 0; background: transparent; cursor: pointer; color: var(--color-neutral-500); width: 32px; height: 32px; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sv-modal-close:hover { background: var(--color-neutral-100); color: var(--color-neutral-900); }
+.sv-modal-close svg { width: 18px; height: 18px; }
+.sv-modal-body { padding: 0 var(--space-lg) var(--space-lg); font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.sv-modal-foot { display: flex; justify-content: flex-end; gap: var(--space-sm); padding: var(--space-md) var(--space-lg); border-top: 1px solid var(--color-neutral-200); }
+
+/* Toast */
+.sv-toast { display: flex; align-items: flex-start; gap: var(--space-sm); width: 320px; max-width: 100%; padding: var(--space-md); border-radius: var(--radius-md); box-shadow: var(--shadow-md); font-size: var(--font-size-sm); border: 1px solid; }
+.sv-toast-success { background: var(--color-success-100); border-color: var(--color-success-600); color: var(--color-success-700); }
+.sv-toast-info    { background: var(--color-primary-50);  border-color: var(--color-primary-300); color: var(--color-primary-700); }
+.sv-toast-warning { background: var(--color-warning-100); border-color: var(--color-warning-700); color: var(--color-warning-700); }
+.sv-toast-danger  { background: var(--color-danger-100);  border-color: var(--color-danger-600); color: var(--color-danger-700); }
+.sv-toast-msg { flex: 1; }
+.sv-toast-close { border: 0; background: transparent; color: inherit; cursor: pointer; flex-shrink: 0; padding: 0; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; }
+.sv-toast-close svg { width: 14px; height: 14px; }
+
+/* Tooltip */
+.sv-tooltip { position: relative; display: inline-flex; }
+.sv-tooltip-bubble {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--color-neutral-700); color: var(--color-neutral-0);
+  font-size: var(--font-size-xs); padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);
+  white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; z-index: 10;
+}
+.sv-tooltip:hover .sv-tooltip-bubble, .sv-tooltip:focus-within .sv-tooltip-bubble { opacity: 1; }
+
+/* Skeleton */
+@keyframes sv-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.sv-skeleton { display: block; background: var(--color-neutral-200); animation: sv-pulse 1.5s ease-in-out infinite; }
+.sv-skeleton-text { height: 16px; border-radius: var(--radius-sm); }
+.sv-skeleton-circle { border-radius: var(--radius-full); }
+.sv-skeleton-rect { border-radius: var(--radius-md); }
+
+/* Dropdown */
+.sv-dropdown { position: relative; display: inline-block; }
+.sv-dropdown-menu {
+  position: absolute; top: calc(100% + 4px); left: 0; min-width: 180px;
+  background: var(--color-neutral-0); border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: var(--space-xs); z-index: 50;
+}
+.sv-dropdown-menu[hidden] { display: none; }
+.sv-dropdown-item {
+  display: block; width: 100%; text-align: left; padding: var(--space-sm);
+  border: 0; background: transparent; border-radius: var(--radius-sm);
+  font-family: var(--font-family); font-size: var(--font-size-sm); color: var(--color-neutral-700); cursor: pointer;
+}
+.sv-dropdown-item:hover { background: var(--color-neutral-50); }
+.sv-dropdown-item.is-danger { color: var(--color-danger-600); }
+.sv-dropdown-item.is-danger:hover { background: var(--color-danger-100); }
+
+/* CopyButton */
+.sv-copybtn {
+  width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-neutral-200); background: var(--color-neutral-0);
+  border-radius: var(--radius-md); color: var(--color-neutral-700); cursor: pointer; transition: background-color 0.15s;
+}
+.sv-copybtn:hover { background: var(--color-neutral-50); }
+.sv-copybtn.is-done { color: var(--color-success-600); border-color: var(--color-success-600); }
+.sv-copybtn svg { width: 16px; height: 16px; }
+
 /* ---------- AI-Ready 3-layer diagram ---------- */
 .layers { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-lg); }
 .layer { display: flex; align-items: center; gap: var(--space-md); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); padding: var(--space-md); background: var(--color-neutral-0); }
@@ -424,10 +632,32 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
     <a href="#elevation">エレベーション</a>
     <a href="#button">Button</a>
     <a href="#textfield">TextField</a>
+    <a href="#select">Select</a>
+    <a href="#checkbox">Checkbox</a>
+    <a href="#radio">Radio</a>
+    <a href="#toggle">Toggle</a>
+    <a href="#datepicker">DatePicker</a>
+    <a href="#tabs">Tabs</a>
+    <a href="#breadcrumb">Breadcrumb</a>
+    <a href="#pagination">Pagination</a>
+    <a href="#stepper">Stepper</a>
+    <a href="#accordion">Accordion</a>
+    <a href="#sidebar">Sidebar</a>
     <a href="#card">Card</a>
     <a href="#badge">Badge</a>
-    <a href="#tabs">Tabs</a>
+    <a href="#table">Table</a>
+    <a href="#list">List</a>
+    <a href="#tag">Tag</a>
+    <a href="#avatar">Avatar</a>
+    <a href="#progress">Progress</a>
+    <a href="#divider">Divider</a>
     <a href="#alert">Alert</a>
+    <a href="#modal">Modal</a>
+    <a href="#toast">Toast</a>
+    <a href="#tooltip">Tooltip</a>
+    <a href="#skeleton">Skeleton</a>
+    <a href="#dropdown">Dropdown</a>
+    <a href="#copybutton">CopyButton</a>
     <a href="#dodont">Do / Don't</a>
   </nav>
 </div>
@@ -456,13 +686,47 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
     </div>
 
     <div class="sidebar-nav-group">
-      <div class="sidebar-nav-title">Components</div>
+      <div class="sidebar-nav-title">入力</div>
       <a class="sidebar-nav-link" href="#button">Button</a>
       <a class="sidebar-nav-link" href="#textfield">TextField</a>
+      <a class="sidebar-nav-link" href="#select">Select</a>
+      <a class="sidebar-nav-link" href="#checkbox">Checkbox</a>
+      <a class="sidebar-nav-link" href="#radio">Radio</a>
+      <a class="sidebar-nav-link" href="#toggle">Toggle</a>
+      <a class="sidebar-nav-link" href="#datepicker">DatePicker</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">ナビゲーション</div>
+      <a class="sidebar-nav-link" href="#tabs">Tabs</a>
+      <a class="sidebar-nav-link" href="#breadcrumb">Breadcrumb</a>
+      <a class="sidebar-nav-link" href="#pagination">Pagination</a>
+      <a class="sidebar-nav-link" href="#stepper">Stepper</a>
+      <a class="sidebar-nav-link" href="#accordion">Accordion</a>
+      <a class="sidebar-nav-link" href="#sidebar">Sidebar</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">データ表示</div>
       <a class="sidebar-nav-link" href="#card">Card</a>
       <a class="sidebar-nav-link" href="#badge">Badge</a>
-      <a class="sidebar-nav-link" href="#tabs">Tabs</a>
+      <a class="sidebar-nav-link" href="#table">Table</a>
+      <a class="sidebar-nav-link" href="#list">List</a>
+      <a class="sidebar-nav-link" href="#tag">Tag</a>
+      <a class="sidebar-nav-link" href="#avatar">Avatar</a>
+      <a class="sidebar-nav-link" href="#progress">Progress</a>
+      <a class="sidebar-nav-link" href="#divider">Divider</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">フィードバック</div>
       <a class="sidebar-nav-link" href="#alert">Alert</a>
+      <a class="sidebar-nav-link" href="#modal">Modal</a>
+      <a class="sidebar-nav-link" href="#toast">Toast</a>
+      <a class="sidebar-nav-link" href="#tooltip">Tooltip</a>
+      <a class="sidebar-nav-link" href="#skeleton">Skeleton</a>
+      <a class="sidebar-nav-link" href="#dropdown">Dropdown</a>
+      <a class="sidebar-nav-link" href="#copybutton">CopyButton</a>
     </div>
 
     <div class="sidebar-nav-group">
@@ -483,7 +747,7 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
         <a class="sv-btn sv-btn-secondary sv-btn-md" href="#overview">3層構造を見る</a>
       </div>
       <div class="stats">
-        <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Components</div></div>
+        <div class="stat-card"><div class="stat-num">28</div><div class="stat-label">Components</div></div>
         <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">Rules</div></div>
         <div class="stat-card"><div class="stat-num">40+</div><div class="stat-label">Tokens</div></div>
         <div class="stat-card"><div class="stat-num">MCP</div><div class="stat-label">Server</div></div>
@@ -841,6 +1105,676 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
       <p class="spec-note">仕様詳細: <code>design/contracts/components/alert.contract.json</code></p>
     </section>
 
+    <!-- ============ 入力 ============ -->
+
+    <!-- Select -->
+    <section class="section" id="select">
+      <div class="section-eyebrow">入力</div>
+      <h2 class="section-title">Select</h2>
+      <p class="section-lead">ネイティブ select をベースに、ラベル・補足・エラーを TextField と揃えた選択入力。右端のシェブロンは装飾のみ（aria-hidden）。</p>
+
+      <div class="demo">
+        <div class="sv-field">
+          <label class="sv-field-label" for="sel-1">お住まいの地域</label>
+          <div class="sv-select-wrap">
+            <select class="sv-select" id="sel-1">
+              <option value="">選択してください</option>
+              <option value="tokyo">東京都</option>
+              <option value="osaka">大阪府</option>
+            </select>
+            <svg class="sv-select-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 8l4 4 4-4"/></svg>
+          </div>
+          <p class="sv-field-helper">配送料の計算に使用します</p>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Select
+  label="お住まいの地域"
+  helperText="配送料の計算に使用します"
+  options={[
+    { value: "", label: "選択してください" },
+    { value: "tokyo", label: "東京都" },
+    { value: "osaka", label: "大阪府" },
+  ]}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/select.contract.json</code></p>
+    </section>
+
+    <!-- Checkbox -->
+    <section class="section" id="checkbox">
+      <div class="section-eyebrow">入力</div>
+      <h2 class="section-title">Checkbox</h2>
+      <p class="section-lead">ラベル付きのチェックボックス。ラベルクリックでも切り替わり、選択マークは primary で表現する。</p>
+
+      <div class="demo">
+        <div class="sv-check-group">
+          <div class="sv-check-row"><input type="checkbox" id="cb-1" checked><label for="cb-1">利用規約に同意する</label></div>
+          <div class="sv-check-row"><input type="checkbox" id="cb-2"><label for="cb-2">メールマガジンを受け取る</label></div>
+          <div class="sv-check-row is-disabled"><input type="checkbox" id="cb-3" disabled><label for="cb-3">この項目は選べません</label></div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;div className="flex flex-col gap-2"&gt;
+  &lt;Checkbox label="利用規約に同意する" defaultChecked /&gt;
+  &lt;Checkbox label="メールマガジンを受け取る" /&gt;
+  &lt;Checkbox label="この項目は選べません" disabled /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/checkbox.contract.json</code></p>
+    </section>
+
+    <!-- Radio -->
+    <section class="section" id="radio">
+      <div class="section-eyebrow">入力</div>
+      <h2 class="section-title">Radio</h2>
+      <p class="section-lead">排他選択のためのラジオボタン。RadioGroup で legend と name を共有し、中に Radio を並べる。</p>
+
+      <div class="demo">
+        <fieldset class="sv-fieldset">
+          <legend class="sv-legend">お支払い方法</legend>
+          <div class="sv-check-group">
+            <div class="sv-check-row"><input type="radio" name="pay" id="rd-1" checked><label for="rd-1">クレジットカード</label></div>
+            <div class="sv-check-row"><input type="radio" name="pay" id="rd-2"><label for="rd-2">銀行振込</label></div>
+            <div class="sv-check-row is-disabled"><input type="radio" name="pay" id="rd-3" disabled><label for="rd-3">代金引換</label></div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;RadioGroup legend="お支払い方法" name="payment"&gt;
+  &lt;Radio label="クレジットカード" value="card" defaultChecked /&gt;
+  &lt;Radio label="銀行振込" value="bank" /&gt;
+  &lt;Radio label="代金引換" value="cod" disabled /&gt;
+&lt;/RadioGroup&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/radio.contract.json</code></p>
+    </section>
+
+    <!-- Toggle -->
+    <section class="section" id="toggle">
+      <div class="section-eyebrow">入力</div>
+      <h2 class="section-title">Toggle</h2>
+      <p class="section-lead">その場で即時に反映される ON/OFF スイッチ。role="switch" とキーボード操作に対応する。下のデモは実際に切り替わります。</p>
+
+      <div class="demo">
+        <div class="sv-toggle">
+          <button class="sv-toggle-btn" type="button" role="switch" aria-checked="true" aria-labelledby="tg-1-label" onclick="svToggle(this)"><span class="sv-toggle-knob"></span></button>
+          <div class="sv-toggle-text">
+            <div class="sv-toggle-label" id="tg-1-label">メール通知</div>
+            <div class="sv-toggle-desc">新着メッセージをメールで受け取ります</div>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Toggle
+  label="メール通知"
+  description="新着メッセージをメールで受け取ります"
+  defaultChecked
+  onChange={(on) =&gt; console.log(on)}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/toggle.contract.json</code></p>
+    </section>
+
+    <!-- DatePicker -->
+    <section class="section" id="datepicker">
+      <div class="section-eyebrow">入力</div>
+      <h2 class="section-title">DatePicker</h2>
+      <p class="section-lead">ネイティブ input[type="date"] にラベル・補足・エラーを TextField と同じ形で統合した日付入力。</p>
+
+      <div class="demo">
+        <div class="sv-field">
+          <label class="sv-field-label" for="dp-1">予約日</label>
+          <input class="sv-field-input" id="dp-1" type="date" min="2026-07-08">
+          <p class="sv-field-helper">本日以降の日付を選択してください</p>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;DatePicker
+  label="予約日"
+  helperText="本日以降の日付を選択してください"
+  min="2026-07-08"
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/datepicker.contract.json</code></p>
+    </section>
+
+    <!-- ============ ナビゲーション ============ -->
+
+    <!-- Breadcrumb -->
+    <section class="section" id="breadcrumb">
+      <div class="section-eyebrow">ナビゲーション</div>
+      <h2 class="section-title">Breadcrumb</h2>
+      <p class="section-lead">現在地の階層と上位ページへの導線を示すナビゲーション。区切りは「/」1種類、最終要素はリンクにしません。</p>
+
+      <div class="demo">
+        <nav aria-label="パンくずリスト" style="width:100%">
+          <ol class="sv-breadcrumb">
+            <li><a href="#breadcrumb">ホーム</a></li>
+            <li class="sv-breadcrumb-sep" aria-hidden="true">/</li>
+            <li><a href="#breadcrumb">製品</a></li>
+            <li class="sv-breadcrumb-sep" aria-hidden="true">/</li>
+            <li class="sv-breadcrumb-current" aria-current="page">デザインシステム</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Breadcrumb
+  items={[
+    { label: "ホーム", href: "/" },
+    { label: "製品", href: "/products" },
+    { label: "デザインシステム" },
+  ]}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/breadcrumb.contract.json</code></p>
+    </section>
+
+    <!-- Pagination -->
+    <section class="section" id="pagination">
+      <div class="section-eyebrow">ナビゲーション</div>
+      <h2 class="section-title">Pagination</h2>
+      <p class="section-lead">一覧を複数ページに分割し、ページ間を移動させるナビゲーション。番号は最大7個、超える分は「…」で省略します。下のデモは実際に切り替わります。</p>
+
+      <div class="demo">
+        <div class="sv-pagination" data-total="20" data-page="4" role="navigation" aria-label="ページネーション"></div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Pagination
+  page={4}
+  totalPages={20}
+  onChange={(p) =&gt; setPage(p)}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/pagination.contract.json</code></p>
+    </section>
+
+    <!-- Stepper -->
+    <section class="section" id="stepper">
+      <div class="section-eyebrow">ナビゲーション</div>
+      <h2 class="section-title">Stepper</h2>
+      <p class="section-lead">複数段階の手続きの進捗と現在地を示すナビゲーション。完了・現在・未完了の3状態を色で明確に分けます。</p>
+
+      <div class="demo">
+        <div class="sv-stepper" style="width:100%">
+          <div class="sv-step">
+            <span class="sv-step-dot is-done"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10l3 3 7-7"/></svg></span>
+            <span class="sv-step-label">配送先</span>
+            <span class="sv-step-desc">お届け先の入力</span>
+          </div>
+          <div class="sv-step-conn is-done"></div>
+          <div class="sv-step">
+            <span class="sv-step-dot is-current" aria-current="step">2</span>
+            <span class="sv-step-label">支払い</span>
+          </div>
+          <div class="sv-step-conn"></div>
+          <div class="sv-step">
+            <span class="sv-step-dot is-todo">3</span>
+            <span class="sv-step-label">確認</span>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Stepper
+  current={1}
+  steps={[
+    { label: "配送先", description: "お届け先の入力" },
+    { label: "支払い" },
+    { label: "確認" },
+  ]}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/stepper.contract.json</code></p>
+    </section>
+
+    <!-- Accordion -->
+    <section class="section" id="accordion">
+      <div class="section-eyebrow">ナビゲーション</div>
+      <h2 class="section-title">Accordion</h2>
+      <p class="section-lead">見出しをクリックして内容を開閉し、長いコンテンツを折りたたむUI。既定は単一展開です。下のデモは実際に開閉します。</p>
+
+      <div class="demo demo-column">
+        <div class="sv-accordion" style="width:100%">
+          <div class="sv-accordion-item">
+            <button class="sv-accordion-trigger" type="button" aria-expanded="true" aria-controls="acc-p1" id="acc-t1" onclick="svAccordion(this)">配送について<svg class="sv-accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 8l4 4 4-4"/></svg></button>
+            <div class="sv-accordion-panel" role="region" id="acc-p1" aria-labelledby="acc-t1">ご注文から3営業日以内に発送します。</div>
+          </div>
+          <div class="sv-accordion-item">
+            <button class="sv-accordion-trigger" type="button" aria-expanded="false" aria-controls="acc-p2" id="acc-t2" onclick="svAccordion(this)">返品ポリシー<svg class="sv-accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 8l4 4 4-4"/></svg></button>
+            <div class="sv-accordion-panel" role="region" id="acc-p2" aria-labelledby="acc-t2" hidden>到着後7日以内であれば返品できます。</div>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Accordion
+  items={[
+    { id: "shipping", title: "配送について", content: "ご注文から3営業日以内に発送します。" },
+    { id: "return", title: "返品ポリシー", content: "到着後7日以内であれば返品できます。" },
+  ]}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/accordion.contract.json</code></p>
+    </section>
+
+    <!-- Sidebar -->
+    <section class="section" id="sidebar">
+      <div class="section-eyebrow">ナビゲーション</div>
+      <h2 class="section-title">Sidebar</h2>
+      <p class="section-lead">アプリ全体の主要セクションを縦に並べる恒常的なナビゲーション。幅は 256px 固定、アクティブ項目は primary-50 で塗ります。</p>
+
+      <div class="demo demo-column">
+        <div class="demo-caption">実サイズ（幅256px・高さ可変）を縮小したミニチュアプレビュー</div>
+        <div class="sv-sidebar-mini">
+          <div class="sv-sidebar-mini-head">SEVEN DOT.</div>
+          <nav class="sv-sidebar-mini-nav" aria-label="サンプルサイドバー">
+            <span class="sv-sidebar-mini-link is-active" aria-current="page">ダッシュボード</span>
+            <span class="sv-sidebar-mini-link">プロジェクト</span>
+            <span class="sv-sidebar-mini-link">設定</span>
+          </nav>
+          <div class="sv-sidebar-mini-foot">tomohisa</div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Sidebar
+  header={&lt;span className="text-sm font-semibold text-neutral-900"&gt;SEVEN DOT.&lt;/span&gt;}
+  activeId="dashboard"
+  items={[
+    { id: "dashboard", label: "ダッシュボード", href: "/dashboard" },
+    { id: "projects", label: "プロジェクト", href: "/projects" },
+    { id: "settings", label: "設定", href: "/settings" },
+  ]}
+  footer={&lt;span className="text-xs text-neutral-500"&gt;tomohisa&lt;/span&gt;}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/sidebar.contract.json</code></p>
+    </section>
+
+    <!-- ============ データ表示 ============ -->
+
+    <!-- Table -->
+    <section class="section" id="table">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">Table</h2>
+      <p class="section-lead">表形式のデータを行と列で一覧表示する複合コンポーネント。Card と同じ枠線・角丸で囲み、影は付けません。</p>
+
+      <div class="demo demo-column">
+        <div class="sv-table-wrap">
+          <table class="sv-table">
+            <thead><tr><th scope="col">氏名</th><th scope="col">メール</th><th scope="col">ステータス</th></tr></thead>
+            <tbody>
+              <tr><td>山田 太郎</td><td>taro@example.com</td><td><span class="sv-badge sv-badge-success">有効</span></td></tr>
+              <tr><td>佐藤 花子</td><td>hanako@example.com</td><td><span class="sv-badge sv-badge-warning">招待中</span></td></tr>
+              <tr><td>鈴木 一郎</td><td>ichiro@example.com</td><td><span class="sv-badge sv-badge-neutral">停止中</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import {
+  Table, TableHead, TableBody,
+  TableRow, TableHeaderCell, TableCell,
+} from "@sevendot/ui";
+
+&lt;Table&gt;
+  &lt;TableHead&gt;
+    &lt;TableRow&gt;
+      &lt;TableHeaderCell&gt;氏名&lt;/TableHeaderCell&gt;
+      &lt;TableHeaderCell&gt;メール&lt;/TableHeaderCell&gt;
+      &lt;TableHeaderCell&gt;ステータス&lt;/TableHeaderCell&gt;
+    &lt;/TableRow&gt;
+  &lt;/TableHead&gt;
+  &lt;TableBody&gt;
+    &lt;TableRow&gt;
+      &lt;TableCell&gt;山田 太郎&lt;/TableCell&gt;
+      &lt;TableCell&gt;taro@example.com&lt;/TableCell&gt;
+      &lt;TableCell&gt;&lt;Badge tone="success"&gt;有効&lt;/Badge&gt;&lt;/TableCell&gt;
+    &lt;/TableRow&gt;
+  &lt;/TableBody&gt;
+&lt;/Table&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/table.contract.json</code></p>
+    </section>
+
+    <!-- List -->
+    <section class="section" id="list">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">List</h2>
+      <p class="section-lead">先頭要素・タイトル・補足・末尾要素を持つ行を縦に並べる一覧コンポーネント。区切りは divide のみで表現します。</p>
+
+      <div class="demo">
+        <div class="sv-list">
+          <div class="sv-list-item">
+            <span class="sv-avatar sv-avatar-sm" role="img" aria-label="山田 太郎">YT</span>
+            <div class="sv-list-body"><div class="sv-list-title">山田 太郎</div><div class="sv-list-desc">taro@example.com</div></div>
+            <span class="sv-list-trailing"><span class="sv-badge sv-badge-success">有効</span></span>
+          </div>
+          <div class="sv-list-item">
+            <span class="sv-avatar sv-avatar-sm" role="img" aria-label="佐藤 花子">SH</span>
+            <div class="sv-list-body"><div class="sv-list-title">佐藤 花子</div><div class="sv-list-desc">hanako@example.com</div></div>
+            <span class="sv-list-trailing"><span class="sv-badge sv-badge-warning">招待中</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import { List, ListItem, Avatar, Badge } from "@sevendot/ui";
+
+&lt;List&gt;
+  &lt;ListItem
+    leading={&lt;Avatar initials="YT" size="sm" alt="山田 太郎" /&gt;}
+    title="山田 太郎"
+    description="taro@example.com"
+    trailing={&lt;Badge tone="success"&gt;有効&lt;/Badge&gt;}
+  /&gt;
+  &lt;ListItem
+    leading={&lt;Avatar initials="SH" size="sm" alt="佐藤 花子" /&gt;}
+    title="佐藤 花子"
+    description="hanako@example.com"
+    trailing={&lt;Badge tone="warning"&gt;招待中&lt;/Badge&gt;}
+  /&gt;
+&lt;/List&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/list.contract.json</code></p>
+    </section>
+
+    <!-- Tag -->
+    <section class="section" id="tag">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">Tag</h2>
+      <p class="section-lead">削除できる短いラベル。フィルタ条件や選択済みの項目を表します。tone は neutral / primary の2種のみ。</p>
+
+      <div class="demo">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <span class="sv-tag sv-tag-neutral has-remove">デザイン<button class="sv-tag-remove" type="button" aria-label="デザインを削除"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button></span>
+          <span class="sv-tag sv-tag-primary has-remove">進行中<button class="sv-tag-remove" type="button" aria-label="進行中を削除"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button></span>
+          <span class="sv-tag sv-tag-neutral">アーカイブ</span>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import { Tag } from "@sevendot/ui";
+
+&lt;div className="flex flex-wrap gap-2"&gt;
+  &lt;Tag label="デザイン" onRemove={() =&gt; removeTag("デザイン")} /&gt;
+  &lt;Tag label="進行中" tone="primary" onRemove={() =&gt; removeTag("進行中")} /&gt;
+  &lt;Tag label="アーカイブ" /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/tag.contract.json</code></p>
+    </section>
+
+    <!-- Avatar -->
+    <section class="section" id="avatar">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">Avatar</h2>
+      <p class="section-lead">人物を表す円形のアイコン。画像またはイニシャルを表示します。サイズは sm / md / lg の3種のみ。</p>
+
+      <div class="demo">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="sv-avatar sv-avatar-lg" role="img" aria-label="山田 太郎">YT</span>
+          <span class="sv-avatar sv-avatar-md" role="img" aria-label="山田 太郎">YT</span>
+          <span class="sv-avatar sv-avatar-sm" role="img" aria-label="佐藤 花子">SH</span>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import { Avatar } from "@sevendot/ui";
+
+&lt;div className="flex items-center gap-3"&gt;
+  &lt;Avatar src="/users/taro.jpg" alt="山田 太郎" size="lg" /&gt;
+  &lt;Avatar initials="YT" alt="山田 太郎" size="md" /&gt;
+  &lt;Avatar initials="SH" alt="佐藤 花子" size="sm" /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/avatar.contract.json</code></p>
+    </section>
+
+    <!-- Progress -->
+    <section class="section" id="progress">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">Progress</h2>
+      <p class="section-lead">0〜100%の進捗を横棒で示すコンポーネント。トラックは neutral-200、バーは primary-600 固定です。</p>
+
+      <div class="demo demo-column">
+        <div class="sv-progress">
+          <div class="sv-progress-meta"><span>アップロード</span><span>72%</span></div>
+          <div class="sv-progress-track"><div class="sv-progress-bar" style="width:72%" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div></div>
+        </div>
+        <div class="sv-progress">
+          <div class="sv-progress-track"><div class="sv-progress-bar" style="width:30%" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div></div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import { Progress } from "@sevendot/ui";
+
+&lt;div className="space-y-4"&gt;
+  &lt;Progress value={72} label="アップロード" /&gt;
+  &lt;Progress value={30} /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/progress.contract.json</code></p>
+    </section>
+
+    <!-- Divider -->
+    <section class="section" id="divider">
+      <div class="section-eyebrow">データ表示</div>
+      <h2 class="section-title">Divider</h2>
+      <p class="section-lead">領域を区切る罫線。水平・ラベル付き・垂直の3形態を持ちます。線色は neutral-200・太さ1px 固定。</p>
+
+      <div class="demo demo-column">
+        <div style="width:100%">
+          <p style="font-size:var(--font-size-sm)">セクション A</p>
+          <hr class="sv-divider" role="separator" aria-orientation="horizontal" style="margin:16px 0">
+          <p style="font-size:var(--font-size-sm)">セクション B</p>
+          <div class="sv-divider-labeled" role="separator" style="margin:16px 0"><span class="sv-divider-label">または</span></div>
+          <div style="display:flex;align-items:center;height:24px;font-size:var(--font-size-sm)"><span>左</span><span class="sv-divider-vertical" role="separator" aria-orientation="vertical" style="margin:0 12px"></span><span>右</span></div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>import { Divider } from "@sevendot/ui";
+
+&lt;div className="space-y-4"&gt;
+  &lt;p&gt;セクション A&lt;/p&gt;
+  &lt;Divider /&gt;
+  &lt;p&gt;セクション B&lt;/p&gt;
+  &lt;Divider label="または" /&gt;
+  &lt;div className="flex items-center h-6"&gt;
+    &lt;span&gt;左&lt;/span&gt;
+    &lt;Divider orientation="vertical" className="mx-3" /&gt;
+    &lt;span&gt;右&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/divider.contract.json</code></p>
+    </section>
+
+    <!-- ============ フィードバック ============ -->
+
+    <!-- Modal -->
+    <section class="section" id="modal">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">Modal</h2>
+      <p class="section-lead">画面前面に重ねて、注視すべき単一タスクへ集中させるダイアログ。閉じる手段は閉じるボタン・オーバーレイクリック・Escapeキーの3つ。下のボタンで実際に開けます。</p>
+
+      <div class="demo">
+        <button class="sv-btn sv-btn-secondary sv-btn-md" type="button" onclick="svOpenModal()">モーダルを開く</button>
+        <div class="sv-modal-overlay" id="sv-modal-demo" hidden onclick="svModalOverlay(event)">
+          <div class="sv-modal-panel" role="dialog" aria-modal="true" aria-labelledby="sv-modal-title">
+            <div class="sv-modal-head">
+              <h3 class="sv-modal-title" id="sv-modal-title">下書きを削除しますか？</h3>
+              <button class="sv-modal-close" type="button" aria-label="閉じる" onclick="svCloseModal()"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+            </div>
+            <div class="sv-modal-body">削除した下書きは元に戻せません。</div>
+            <div class="sv-modal-foot">
+              <button class="sv-btn sv-btn-secondary sv-btn-md" type="button" onclick="svCloseModal()">キャンセル</button>
+              <button class="sv-btn sv-btn-danger sv-btn-md" type="button" onclick="svCloseModal()">削除する</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Modal
+  open={open}
+  onClose={() =&gt; setOpen(false)}
+  title="下書きを削除しますか？"
+  footer={
+    &lt;&gt;
+      &lt;Button variant="secondary" onClick={() =&gt; setOpen(false)}&gt;キャンセル&lt;/Button&gt;
+      &lt;Button variant="danger" onClick={handleDelete}&gt;削除する&lt;/Button&gt;
+    &lt;/&gt;
+  }
+&gt;
+  削除した下書きは元に戻せません。
+&lt;/Modal&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/modal.contract.json</code></p>
+    </section>
+
+    <!-- Toast -->
+    <section class="section" id="toast">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">Toast</h2>
+      <p class="section-lead">操作結果を一時的に知らせる、消えていく通知。残すべきお知らせは Alert を使います。影は shadow-md まで。</p>
+
+      <div class="demo demo-column">
+        <div class="sv-toast sv-toast-success" role="status" aria-live="polite">
+          <span class="sv-toast-msg">変更を保存しました</span>
+          <button class="sv-toast-close" type="button" aria-label="閉じる"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+        </div>
+        <div class="sv-toast sv-toast-info" role="status" aria-live="polite">
+          <span class="sv-toast-msg">リンクをコピーしました</span>
+          <button class="sv-toast-close" type="button" aria-label="閉じる"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>// 呼び出し側で 4 秒後に閉じる例
+React.useEffect(() =&gt; {
+  const id = window.setTimeout(() =&gt; setShow(false), 4000);
+  return () =&gt; window.clearTimeout(id);
+}, []);
+
+{show ? (
+  &lt;Toast tone="success" message="変更を保存しました" onClose={() =&gt; setShow(false)} /&gt;
+) : null}</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/toast.contract.json</code></p>
+    </section>
+
+    <!-- Tooltip -->
+    <section class="section" id="tooltip">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">Tooltip</h2>
+      <p class="section-lead">要素にホバー・フォーカスしたとき、短い補足を吹き出しで見せます。背景は neutral-700 固定。下のボタンにカーソルを重ねてください。</p>
+
+      <div class="demo">
+        <span class="sv-tooltip">
+          <button class="sv-btn sv-btn-ghost sv-btn-sm" type="button">保存について</button>
+          <span class="sv-tooltip-bubble" role="tooltip">変更は自動保存されます</span>
+        </span>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Tooltip content="変更は自動保存されます"&gt;
+  &lt;Button variant="ghost" size="sm"&gt;保存について&lt;/Button&gt;
+&lt;/Tooltip&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/tooltip.contract.json</code></p>
+    </section>
+
+    <!-- Skeleton -->
+    <section class="section" id="skeleton">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">Skeleton</h2>
+      <p class="section-lead">読み込み中のコンテンツ位置を、実物と同じ形の灰色プレースホルダで示します。text / circle / rect の3種、色は neutral-200 固定。</p>
+
+      <div class="demo demo-column">
+        <div style="display:flex;align-items:center;gap:8px;width:100%" role="status" aria-busy="true">
+          <span class="sv-skeleton sv-skeleton-circle" style="width:40px;height:40px"></span>
+          <span class="sv-skeleton sv-skeleton-text" style="width:60%"></span>
+          <span class="sr-only">読み込み中</span>
+        </div>
+        <span class="sv-skeleton sv-skeleton-rect" style="width:100%;height:96px"></span>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;div className="flex items-center gap-2"&gt;
+  &lt;Skeleton variant="circle" width={40} height={40} /&gt;
+  &lt;Skeleton variant="text" width="60%" /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/skeleton.contract.json</code></p>
+    </section>
+
+    <!-- Dropdown -->
+    <section class="section" id="dropdown">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">Dropdown</h2>
+      <p class="section-lead">トリガーボタンから、関連する操作の一覧を開いて選ばせるメニュー。外側クリックと Escape で閉じます。下のデモは実際に開閉します。</p>
+
+      <div class="demo">
+        <div class="sv-dropdown">
+          <button class="sv-btn sv-btn-secondary sv-btn-md" type="button" data-dropdown-trigger aria-haspopup="true" aria-expanded="false" aria-controls="dd-menu-1" onclick="svDropdown(this)">操作</button>
+          <div class="sv-dropdown-menu" id="dd-menu-1" role="menu" hidden>
+            <button class="sv-dropdown-item" type="button" role="menuitem" onclick="svDropdownSelect(this)">編集</button>
+            <button class="sv-dropdown-item" type="button" role="menuitem" onclick="svDropdownSelect(this)">複製</button>
+            <button class="sv-dropdown-item is-danger" type="button" role="menuitem" onclick="svDropdownSelect(this)">削除</button>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Dropdown
+  label="操作"
+  items={[
+    { id: "edit", label: "編集", onSelect: handleEdit },
+    { id: "dup", label: "複製", onSelect: handleDuplicate },
+    { id: "del", label: "削除", tone: "danger", onSelect: handleDelete },
+  ]}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/dropdown.contract.json</code></p>
+    </section>
+
+    <!-- CopyButton -->
+    <section class="section" id="copybutton">
+      <div class="section-eyebrow">フィードバック</div>
+      <h2 class="section-title">CopyButton</h2>
+      <p class="section-lead">文字列をクリップボードへコピーし、成功をアイコンで一瞬フィードバックするボタン。下のボタンは実際にコピーできます。</p>
+
+      <div class="demo">
+        <div style="display:flex;align-items:center;gap:8px">
+          <code style="font-size:var(--font-size-sm);color:var(--color-neutral-700)">sk_live_7d0t...</code>
+          <button class="sv-copybtn" type="button" aria-label="APIキーをコピー" data-copy="sk_live_7d0t..." onclick="svCopyValue(this)">
+            <svg class="sv-copy-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M4 13V5a2 2 0 0 1 2-2h6"/></svg>
+            <svg class="sv-copy-check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" hidden><path d="M5 10l3 3 7-7"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;div className="flex items-center gap-2"&gt;
+  &lt;code className="text-sm text-neutral-700"&gt;sk_live_7d0t...&lt;/code&gt;
+  &lt;CopyButton text="sk_live_7d0t..." aria-label="APIキーをコピー" /&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/copybutton.contract.json</code></p>
+    </section>
+
     <!-- 8. Do / Don't -->
     <section class="section" id="dodont">
       <div class="section-eyebrow">Guidelines</div>
@@ -1108,6 +2042,117 @@ code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consola
       if (panel) panel.hidden = !selected;
     });
   }
+
+  // Toggle 切替
+  function svToggle(btn) {
+    var on = btn.getAttribute('aria-checked') === 'true';
+    btn.setAttribute('aria-checked', on ? 'false' : 'true');
+  }
+
+  // Accordion 開閉（単一展開）
+  function svAccordion(btn) {
+    var root = btn.closest('.sv-accordion');
+    var wasExpanded = btn.getAttribute('aria-expanded') === 'true';
+    if (root) {
+      root.querySelectorAll('.sv-accordion-trigger').forEach(function (t) {
+        t.setAttribute('aria-expanded', 'false');
+        var p = document.getElementById(t.getAttribute('aria-controls'));
+        if (p) p.hidden = true;
+      });
+    }
+    if (!wasExpanded) {
+      btn.setAttribute('aria-expanded', 'true');
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (panel) panel.hidden = false;
+    }
+  }
+
+  // Dropdown 開閉
+  function svCloseAllDropdowns() {
+    document.querySelectorAll('.sv-dropdown-menu').forEach(function (m) { m.hidden = true; });
+    document.querySelectorAll('[data-dropdown-trigger]').forEach(function (t) { t.setAttribute('aria-expanded', 'false'); });
+  }
+  function svDropdown(btn) {
+    var menu = document.getElementById(btn.getAttribute('aria-controls'));
+    var isOpen = btn.getAttribute('aria-expanded') === 'true';
+    svCloseAllDropdowns();
+    if (!isOpen) {
+      btn.setAttribute('aria-expanded', 'true');
+      if (menu) menu.hidden = false;
+    }
+  }
+  function svDropdownSelect(item) {
+    svCloseAllDropdowns();
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.sv-dropdown')) svCloseAllDropdowns();
+  });
+
+  // Pagination 切替（page/total から番号ボタンを組み立てて再描画）
+  function svRenderPagination(root, page, total) {
+    page = Math.min(Math.max(page, 1), total);
+    root.setAttribute('data-page', page);
+    var parts = [];
+    parts.push('<button class="sv-page-btn" type="button" aria-label="前のページ" onclick="svPage(this,' + (page - 1) + ')"' + (page <= 1 ? ' disabled' : '') + '>‹</button>');
+    var set = {};
+    set[1] = true; set[total] = true;
+    for (var i = page - 1; i <= page + 1; i++) { if (i >= 1 && i <= total) set[i] = true; }
+    var keys = Object.keys(set).map(Number).sort(function (a, b) { return a - b; });
+    var prev = 0;
+    keys.forEach(function (n) {
+      if (prev && n - prev > 1) parts.push('<span class="sv-page-ellipsis">…</span>');
+      parts.push('<button class="sv-page-btn' + (n === page ? ' is-current' : '') + '" type="button" onclick="svPage(this,' + n + ')"' + (n === page ? ' aria-current="page"' : '') + '>' + n + '</button>');
+      prev = n;
+    });
+    parts.push('<button class="sv-page-btn" type="button" aria-label="次のページ" onclick="svPage(this,' + (page + 1) + ')"' + (page >= total ? ' disabled' : '') + '>›</button>');
+    root.innerHTML = parts.join('');
+  }
+  function svPage(el, page) {
+    var root = el.closest('.sv-pagination');
+    if (root) svRenderPagination(root, page, parseInt(root.getAttribute('data-total'), 10));
+  }
+
+  // Modal 開閉デモ（ESC・オーバーレイで閉じる）
+  function svModalEsc(e) { if (e.key === 'Escape') svCloseModal(); }
+  function svOpenModal() {
+    var m = document.getElementById('sv-modal-demo');
+    if (m) { m.hidden = false; document.addEventListener('keydown', svModalEsc); }
+  }
+  function svCloseModal() {
+    var m = document.getElementById('sv-modal-demo');
+    if (m) { m.hidden = true; document.removeEventListener('keydown', svModalEsc); }
+  }
+  function svModalOverlay(e) { if (e.target === e.currentTarget) svCloseModal(); }
+
+  // CopyButton 実動作（アイコンをチェックに切り替え、2秒で復帰）
+  function svCopyValue(btn) {
+    var text = btn.getAttribute('data-copy') || '';
+    var icon = btn.querySelector('.sv-copy-icon');
+    var check = btn.querySelector('.sv-copy-check');
+    var flip = function () {
+      btn.classList.add('is-done');
+      if (icon) icon.hidden = true;
+      if (check) check.hidden = false;
+      setTimeout(function () {
+        btn.classList.remove('is-done');
+        if (icon) icon.hidden = false;
+        if (check) check.hidden = true;
+      }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flip).catch(function () { flip(); });
+    } else { flip(); }
+  }
+
+  // Escape でドロップダウンも閉じる
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') svCloseAllDropdowns();
+  });
+
+  // Pagination 初期描画
+  document.querySelectorAll('.sv-pagination[data-total]').forEach(function (root) {
+    svRenderPagination(root, parseInt(root.getAttribute('data-page') || '1', 10), parseInt(root.getAttribute('data-total'), 10));
+  });
 
   // サイドバー: スクロールで現在地ハイライト
   (function () {

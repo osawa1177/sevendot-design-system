@@ -1,0 +1,19 @@
+{
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "import": "import { Breadcrumb } from \"@sevendot/ui\"",
+  "props": {
+    "items": { "type": "BreadcrumbItem[]", "required": true, "description": "{ label, href? } の配列。最終要素は現在地で href 省略" }
+  },
+  "a11y": [
+    "nav に aria-label=\"パンくずリスト\"、ol/li で構造化",
+    "最終要素に aria-current=\"page\"",
+    "区切りの / は aria-hidden"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.neutral.500", "color.neutral.700", "color.neutral.900", "color.primary.600"],
+  "usage": {
+    "do": ["階層が2段以上のページで使う", "最終要素はページタイトルと一致させる"],
+    "dont": ["1段しかないページに置く", "区切り文字を複数種混在させる"]
+  }
+}

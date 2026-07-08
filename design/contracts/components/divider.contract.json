@@ -1,0 +1,15 @@
+{
+  "id": "divider",
+  "name": "Divider",
+  "import": "import { Divider } from \"@sevendot/ui\"",
+  "props": {
+    "orientation": { "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal" },
+    "label": { "type": "string", "description": "中央に表示するテキスト（水平のみ）" }
+  },
+  "tokenRefs": { "border": "color.neutral.200" },
+  "rules": ["COLOR_NO_RAW_PALETTE", "DECOR_NO_GRADIENT_BG"],
+  "usage": {
+    "do": ["線色は border-neutral-200・太さ1px", "role=\"separator\" と aria-orientation を付ける", "細かい区切りは divide-y を使う"],
+    "dont": ["太い線や濃い色にする", "グラデーションや二重線で装飾", "垂直を高さのない親に置く"]
+  }
+}

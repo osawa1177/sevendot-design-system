@@ -1,0 +1,22 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "import": "import { Checkbox } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "checked": { "type": "boolean", "note": "controlled" },
+    "defaultChecked": { "type": "boolean", "note": "uncontrolled" },
+    "disabled": { "type": "boolean", "default": false }
+  },
+  "tokenRefs": {
+    "accent": "color.primary.600",
+    "border": "color.neutral.200",
+    "text": "color.neutral.900"
+  },
+  "a11y": ["label は htmlFor で input と関連付け、ラベルクリックで切替", "focus-visible リング標準装備"],
+  "rules": ["COLOR_NO_RAW_PALETTE", "COMP_NO_REINVENT", "UI_NO_EMOJI_LABEL"],
+  "usage": {
+    "do": ["複数は flex flex-col gap-2 でまとめる", "本体は18px角固定"],
+    "dont": ["label なしで使わない", "サイズを個別に変えない"]
+  }
+}

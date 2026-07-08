@@ -1,0 +1,23 @@
+{
+  "id": "sidebar",
+  "name": "Sidebar",
+  "import": "import { Sidebar } from \"@sevendot/ui\"",
+  "props": {
+    "items": { "type": "SidebarItem[]", "required": true, "description": "{ id, label, icon?, href? } の配列。5〜8個" },
+    "activeId": { "type": "string", "description": "現在アクティブなアイテムID" },
+    "header": { "type": "ReactNode", "description": "ブランド名などのヘッダースロット" },
+    "footer": { "type": "ReactNode", "description": "フッタースロット" },
+    "onSelect": { "type": "(id: string) => void", "description": "href 未指定時のクリックハンドラ" }
+  },
+  "a11y": [
+    "nav に aria-label=\"サイドナビゲーション\"、ul/li で構造化",
+    "アクティブ項目に aria-current=\"page\"",
+    "アイコンは aria-hidden"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.primary.50", "color.primary.700", "color.neutral.50", "color.neutral.200", "color.neutral.700", "color.neutral.0", "radius.md"],
+  "usage": {
+    "do": ["アプリの主要セクション遷移に使う", "アクティブ項目を塗りで明示する"],
+    "dont": ["幅を可変にする", "アイコンを一部の項目だけに付ける"]
+  }
+}

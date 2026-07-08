@@ -1,0 +1,16 @@
+{
+  "id": "tag",
+  "name": "Tag",
+  "import": "import { Tag } from \"@sevendot/ui\"",
+  "props": {
+    "label": { "type": "string", "required": true, "description": "表示テキスト" },
+    "tone": { "type": "enum", "values": ["primary", "neutral"], "default": "neutral" },
+    "onRemove": { "type": "function", "description": "渡すと × 削除ボタンを表示" }
+  },
+  "tokenRefs": { "radius": "radius.full" },
+  "rules": ["COLOR_NO_RAW_PALETTE", "A11Y_ICON_ONLY_NEEDS_ARIA", "UI_NO_EMOJI_LABEL"],
+  "usage": {
+    "do": ["削除ボタンに aria-label=\"{label}を削除\" を付ける", "tone は neutral か primary のみ", "× はインライン SVG"],
+    "dont": ["絵文字で × を表現", "装飾目的で primary を選ぶ", "意味色は Badge を使うべきところで Tag を使う"]
+  }
+}

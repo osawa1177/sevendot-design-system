@@ -1,0 +1,33 @@
+{
+  "id": "modal",
+  "name": "Modal",
+  "import": "import { Modal } from \"@sevendot/ui\"",
+  "props": {
+    "open": { "type": "boolean", "default": false },
+    "onClose": { "type": "function" },
+    "title": { "type": "string" },
+    "footer": { "type": "node" }
+  },
+  "a11y": [
+    "role=dialog / aria-modal=true / aria-labelledby でタイトルと関連付ける",
+    "Escapeキーとオーバーレイクリックで閉じる",
+    "閉じるボタンは icon-only なので aria-label=\"閉じる\""
+  ],
+  "rules": [
+    "COLOR_NO_RAW_PALETTE",
+    "ELEVATION_NO_HEAVY_SHADOW",
+    "TEXT_NO_PURE_BLACK",
+    "A11Y_ICON_ONLY_NEEDS_ARIA"
+  ],
+  "tokenRefs": [
+    "color.neutral.900",
+    "color.neutral.200",
+    "color.neutral.0",
+    "radius.lg",
+    "shadow.overlay"
+  ],
+  "usage": {
+    "do": ["1操作1モーダルに絞る", "閉じる手段を3つ用意する（ボタン・オーバーレイ・Escape）"],
+    "dont": ["モーダルの中に別のモーダルを開く", "長文フォームを詰め込む"]
+  }
+}

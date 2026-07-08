@@ -1,0 +1,15 @@
+{
+  "id": "progress",
+  "name": "Progress",
+  "import": "import { Progress } from \"@sevendot/ui\"",
+  "props": {
+    "value": { "type": "number", "required": true, "description": "進捗値（0〜100）" },
+    "label": { "type": "string", "description": "上部に表示するラベル。渡すと N% も表示" }
+  },
+  "tokenRefs": { "track": "color.neutral.200", "bar": "color.primary.600", "radius": "radius.full" },
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "usage": {
+    "do": ["role=\"progressbar\" と aria-valuenow/min/max を付ける", "トラックは neutral-200・バーは primary-600", "高さ h-2 固定"],
+    "dont": ["進捗の色を意味で切り替える", "不確定ローディングに使う（Skeleton を使う）"]
+  }
+}

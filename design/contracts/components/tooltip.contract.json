@@ -1,0 +1,20 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "import": "import { Tooltip } from \"@sevendot/ui\"",
+  "props": {
+    "content": { "type": "string" },
+    "children": { "type": "node" }
+  },
+  "a11y": [
+    "吹き出しに role=tooltip",
+    "ホバーとフォーカス（group-focus-within）の両方で表示する",
+    "aria-label の代替にはしない（icon-only ボタンには別途 aria-label を付ける）"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE"],
+  "tokenRefs": ["color.neutral.700", "color.neutral.0", "radius.md"],
+  "usage": {
+    "do": ["20文字以内の短い補足に使う"],
+    "dont": ["ここにしかない重要情報や操作を入れる", "改行させる長文を入れる"]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "import": "import { Pagination } from \"@sevendot/ui\"",
+  "props": {
+    "page": { "type": "number", "required": true, "description": "現在ページ（1始まり）" },
+    "totalPages": { "type": "number", "required": true },
+    "onChange": { "type": "(page: number) => void", "required": true }
+  },
+  "a11y": [
+    "nav に aria-label=\"ページネーション\"",
+    "現在ページボタンに aria-current=\"page\"",
+    "前後の矢印ボタンに aria-label、端で disabled",
+    "省略の … は aria-hidden"
+  ],
+  "rules": ["COLOR_NO_RAW_PALETTE", "A11Y_ICON_ONLY_NEEDS_ARIA"],
+  "tokenRefs": ["color.primary.600", "color.neutral.200", "color.neutral.500", "color.neutral.700", "color.neutral.0", "radius.md"],
+  "usage": {
+    "do": ["件数と現在地を明示したい表・検索結果に使う", "最大7ボタンで省略表示する"],
+    "dont": ["フィードなど無限スクロールが適する一覧に使う", "現在ページを色で区別しない"]
+  }
+}

@@ -37,6 +37,12 @@ npm run dev        # design-mock → http://localhost:3000
 Claude Code でこのリポジトリを開くと `.mcp.json` により design-system MCP が自動接続される。
 ツール: `get_token` / `list_ui_components` / `get_ui_component` / `get_page` / `check_rules` / `search_guidelines`
 
+## ショーケース
+
+コンポーネント・トークン・ルールを一望できるカタログを GitHub Pages で公開している: **https://osawa1177.github.io/sevendot-design-system/**
+
+実体は `docs/index.html`（外部依存なしの単一HTML）。全カラーは tokens を写した CSS変数駆動なので、ブランド色の差し替えは `:root` ブロックのみの変更で全体に反映される。
+
 ## 品質ゲート
 
 ```bash

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sevendot UI — 人間にも、AIにも、読めるデザインシステム</title>
+<meta name="description" content="Sevendot UI ショーケース。6コンポーネント・10ルール・40+トークンからなる、人間とAIの双方が読めるデザインシステムのカタログ。">
+<style>
+/* =========================================================================
+   ブランド差し替えはこのブロックのみ変更（Single Source of Truth）
+   -------------------------------------------------------------------------
+   全カラー/余白/角丸/影/タイポは tokens/sevendot.tokens.json の値を
+   CSS変数として :root に定義。ページ内は必ず var() を参照する。
+   後日ブランド色を差し替える際は、この :root ブロックの値だけを
+   書き換えれば、ページ全体の見た目が一括で切り替わる。
+   ========================================================================= */
+:root {
+  /* --- color: primary (Indigo) --- */
+  --color-primary-50:  #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-300: #a5b4fc;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+
+  /* --- color: neutral --- */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-500: #64748b;
+  --color-neutral-700: #334155;
+  --color-neutral-900: #0f172a;
+
+  /* --- color: success --- */
+  --color-success-100: #dcfce7;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* --- color: warning --- */
+  --color-warning-100: #fef9c3;
+  --color-warning-700: #a16207;
+
+  /* --- color: danger --- */
+  --color-danger-100:  #fee2e2;
+  --color-danger-600:  #dc2626;
+  --color-danger-700:  #b91c1c;
+
+  /* --- spacing (4px grid) --- */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+
+  /* --- radius --- */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+
+  /* --- typography --- */
+  --font-family: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  --font-size-xs:   12px;
+  --font-size-sm:   14px;
+  --font-size-base: 16px;
+  --font-size-lg:   18px;
+  --font-size-xl:   20px;
+  --font-size-2xl:  24px;
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+
+  /* --- shadow --- */
+  --shadow-sm:      0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md:      0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-overlay: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+/* ===================== ブランド差し替えブロックここまで ===================== */
+
+/* ---------- reset / base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--space-lg); }
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  color: var(--color-neutral-700);
+  background: var(--color-neutral-50);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+
+/* ---------- layout: sidebar + main ---------- */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 248px;
+  background: var(--color-neutral-0);
+  border-right: 1px solid var(--color-neutral-200);
+  overflow-y: auto;
+  padding: var(--space-lg) var(--space-md);
+  z-index: 20;
+}
+.sidebar-brand { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+.sidebar-logo {
+  width: 28px; height: 28px; border-radius: var(--radius-md);
+  background: var(--color-primary-600);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--color-neutral-0); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+.sidebar-brand-name { font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); font-size: var(--font-size-base); }
+.sidebar-nav-group { margin-bottom: var(--space-md); }
+.sidebar-nav-title {
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-500); text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 0 var(--space-sm); margin-bottom: var(--space-xs);
+}
+.sidebar-nav-link {
+  display: block; text-decoration: none;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-700);
+  transition: background-color 0.15s, color 0.15s;
+}
+.sidebar-nav-link:hover { background: var(--color-neutral-100); color: var(--color-neutral-900); }
+.sidebar-nav-link.is-active { background: var(--color-primary-50); color: var(--color-primary-700); font-weight: var(--font-weight-medium); }
+
+.main {
+  flex: 1;
+  margin-left: 248px;
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 960px;
+}
+
+/* top nav for mobile (hidden on desktop) */
+.topbar { display: none; }
+
+/* ---------- section common ---------- */
+.section { padding-top: var(--space-2xl); margin-bottom: var(--space-md); }
+.section:first-child { padding-top: 0; }
+.section-eyebrow {
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: var(--space-xs);
+}
+.section-title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); margin-bottom: var(--space-sm); }
+.section-lead { font-size: var(--font-size-base); color: var(--color-neutral-700); margin-bottom: var(--space-lg); max-width: 68ch; }
+.subhead { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); margin: var(--space-lg) 0 var(--space-sm); }
+
+/* ---------- hero ---------- */
+.hero { padding-top: var(--space-md); }
+.hero-title { font-size: 34px; line-height: 1.3; font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); margin-bottom: var(--space-md); }
+.hero-title .accent { color: var(--color-primary-600); }
+.hero-lead { font-size: var(--font-size-lg); color: var(--color-neutral-700); margin-bottom: var(--space-lg); max-width: 62ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+.stat-card {
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+.stat-num { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); }
+.stat-label { font-size: var(--font-size-sm); color: var(--color-neutral-500); }
+
+/* ---------- generic card / demo panel ---------- */
+.panel {
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+.demo {
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: var(--space-lg);
+  display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: flex-start;
+}
+.demo.demo-column { flex-direction: column; }
+.demo-caption { font-size: var(--font-size-xs); color: var(--color-neutral-500); width: 100%; margin-bottom: var(--space-xs); }
+
+/* ---------- code block + copy ---------- */
+.code-wrap {
+  position: relative;
+  background: var(--color-neutral-900);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  margin-bottom: var(--space-sm);
+}
+.code-wrap.standalone { border-radius: var(--radius-lg); }
+.code-wrap pre {
+  margin: 0; padding: var(--space-md);
+  padding-right: 96px;
+  overflow-x: auto;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-neutral-100);
+}
+.copy-btn {
+  position: absolute; top: var(--space-sm); right: var(--space-sm);
+  display: inline-flex; align-items: center; gap: var(--space-xs);
+  height: 28px; padding: 0 var(--space-sm);
+  background: rgba(255,255,255,0.08);
+  color: var(--color-neutral-100);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: background-color 0.15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.16); }
+.copy-btn.is-done { color: #86efac; }
+.spec-note {
+  font-size: var(--font-size-xs); color: var(--color-neutral-500);
+  margin-bottom: var(--space-lg);
+}
+.spec-note code { background: var(--color-neutral-100); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--color-neutral-700); }
+
+/* ---------- tables ---------- */
+.tbl { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); margin-bottom: var(--space-md); }
+.tbl th, .tbl td { text-align: left; padding: var(--space-sm) var(--space-md); border-bottom: 1px solid var(--color-neutral-200); vertical-align: middle; }
+.tbl th { font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-neutral-500); }
+.tbl td { color: var(--color-neutral-700); }
+.tbl code { font-size: var(--font-size-xs); }
+
+/* ---------- color swatches ---------- */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
+.swatch { border: 1px solid var(--color-neutral-200); border-radius: var(--radius-md); overflow: hidden; background: var(--color-neutral-0); }
+.swatch-color { height: 56px; }
+.swatch-meta { padding: var(--space-sm); }
+.swatch-name { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); }
+.swatch-hex { font-size: var(--font-size-xs); color: var(--color-neutral-500); font-family: ui-monospace, monospace; }
+
+/* ---------- typography scale ---------- */
+.type-row { display: flex; align-items: baseline; gap: var(--space-md); padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-neutral-100); }
+.type-token { width: 120px; flex-shrink: 0; font-size: var(--font-size-xs); color: var(--color-neutral-500); font-family: ui-monospace, monospace; }
+.type-sample { color: var(--color-neutral-900); }
+
+/* ---------- spacing ruler ---------- */
+.ruler-row { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) 0; }
+.ruler-token { width: 140px; flex-shrink: 0; font-size: var(--font-size-sm); color: var(--color-neutral-700); font-family: ui-monospace, monospace; }
+.ruler-bar { height: 16px; background: var(--color-primary-500); border-radius: var(--radius-sm); }
+
+/* ---------- elevation / radius ---------- */
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-md); }
+.tile {
+  background: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  height: 88px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-size-xs); color: var(--color-neutral-500); font-family: ui-monospace, monospace;
+}
+.tile.sh-sm { box-shadow: var(--shadow-sm); border-color: transparent; }
+.tile.sh-md { box-shadow: var(--shadow-md); border-color: transparent; }
+.tile.sh-overlay { box-shadow: var(--shadow-overlay); border-color: transparent; }
+.tile.r-sm { border-radius: var(--radius-sm); }
+.tile.r-md { border-radius: var(--radius-md); }
+.tile.r-lg { border-radius: var(--radius-lg); }
+.tile.r-full { border-radius: var(--radius-full); width: 88px; }
+
+/* =========================================================================
+   コンポーネント再現スタイル（packages/ui の Tailwind 実装を素のCSSで再現）
+   ========================================================================= */
+/* Button */
+.sv-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm);
+  font-family: var(--font-family); font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md); border: 0; cursor: pointer;
+  transition: background-color 0.15s, opacity 0.15s;
+  line-height: 1;
+}
+.sv-btn:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: 2px; }
+.sv-btn-primary   { background: var(--color-primary-600); color: var(--color-neutral-0); }
+.sv-btn-primary:hover:not(:disabled)   { background: var(--color-primary-700); }
+.sv-btn-secondary { background: var(--color-neutral-0); color: var(--color-neutral-900); border: 1px solid var(--color-neutral-200); }
+.sv-btn-secondary:hover:not(:disabled) { background: var(--color-neutral-50); }
+.sv-btn-ghost     { background: transparent; color: var(--color-primary-600); }
+.sv-btn-ghost:hover:not(:disabled)     { background: var(--color-primary-50); }
+.sv-btn-danger    { background: var(--color-danger-600); color: var(--color-neutral-0); }
+.sv-btn-danger:hover:not(:disabled)    { background: var(--color-danger-700); }
+.sv-btn-sm { height: 32px; padding: 0 12px; font-size: var(--font-size-xs); }
+.sv-btn-md { height: 40px; padding: 0 16px; font-size: var(--font-size-sm); }
+.sv-btn-lg { height: 48px; padding: 0 24px; font-size: var(--font-size-base); }
+.sv-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sv-btn-full { width: 100%; }
+
+/* TextField */
+.sv-field { display: flex; flex-direction: column; gap: var(--space-xs); width: 260px; max-width: 100%; }
+.sv-field-label { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-neutral-900); }
+.sv-field-input {
+  height: 40px; padding: 0 12px; font-size: var(--font-size-sm);
+  border-radius: var(--radius-md); border: 1px solid var(--color-neutral-200);
+  background: var(--color-neutral-0); color: var(--color-neutral-900);
+  font-family: var(--font-family);
+}
+.sv-field-input::placeholder { color: var(--color-neutral-500); }
+.sv-field-input:focus { outline: 2px solid var(--color-primary-500); outline-offset: 1px; }
+.sv-field-input:disabled { background: var(--color-neutral-100); color: var(--color-neutral-500); cursor: not-allowed; }
+.sv-field-input.is-error { border-color: var(--color-danger-600); }
+.sv-field-helper { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+.sv-field-error  { font-size: var(--font-size-xs); color: var(--color-danger-600); }
+
+/* Card */
+.sv-card { background: var(--color-neutral-0); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); width: 280px; max-width: 100%; }
+.sv-card-interactive { transition: box-shadow 0.15s; cursor: pointer; }
+.sv-card-interactive:hover { box-shadow: var(--shadow-md); }
+.sv-card-header { padding: var(--space-md) var(--space-md) var(--space-sm); }
+.sv-card-body   { padding: 0 var(--space-md) var(--space-md); }
+.sv-card-title  { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); }
+.sv-card-text   { font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+
+/* Badge */
+.sv-badge {
+  display: inline-flex; align-items: center; height: 24px; padding: 0 var(--space-sm);
+  border-radius: var(--radius-full); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium);
+}
+.sv-badge-neutral { background: var(--color-neutral-100); color: var(--color-neutral-700); }
+.sv-badge-primary { background: var(--color-primary-50);  color: var(--color-primary-700); }
+.sv-badge-success { background: var(--color-success-100); color: var(--color-success-700); }
+.sv-badge-warning { background: var(--color-warning-100); color: var(--color-warning-700); }
+.sv-badge-danger  { background: var(--color-danger-100);  color: var(--color-danger-700); }
+
+/* Tabs */
+.sv-tabs-list { display: flex; gap: var(--space-xs); border-bottom: 1px solid var(--color-neutral-200); }
+.sv-tab {
+  height: 40px; padding: 0 var(--space-md); margin-bottom: -1px;
+  background: transparent; border: 0; border-bottom: 2px solid transparent;
+  font-family: var(--font-family); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-500); cursor: pointer; transition: color 0.15s, border-color 0.15s;
+}
+.sv-tab:hover { color: var(--color-neutral-700); }
+.sv-tab.is-selected { border-bottom-color: var(--color-primary-600); color: var(--color-primary-700); }
+.sv-tab:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: -2px; }
+.sv-tabpanel { padding: var(--space-md) 0; font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.sv-tabpanel[hidden] { display: none; }
+
+/* Alert */
+.sv-alert { border: 1px solid; border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md); font-size: var(--font-size-sm); width: 100%; }
+.sv-alert-title { font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs); }
+.sv-alert-info    { background: var(--color-primary-50);  border-color: var(--color-primary-300); color: var(--color-primary-700); }
+.sv-alert-success { background: var(--color-success-100); border-color: var(--color-success-600); color: var(--color-success-700); }
+.sv-alert-warning { background: var(--color-warning-100); border-color: var(--color-warning-700); color: var(--color-warning-700); }
+.sv-alert-danger  { background: var(--color-danger-100);  border-color: var(--color-danger-600); color: var(--color-danger-700); }
+
+/* ---------- AI-Ready 3-layer diagram ---------- */
+.layers { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+.layer { display: flex; align-items: center; gap: var(--space-md); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); padding: var(--space-md); background: var(--color-neutral-0); }
+.layer-num { width: 32px; height: 32px; flex-shrink: 0; border-radius: var(--radius-full); background: var(--color-primary-50); color: var(--color-primary-700); display: inline-flex; align-items: center; justify-content: center; font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); }
+.layer-body { flex: 1; }
+.layer-name { font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); font-size: var(--font-size-base); }
+.layer-desc { font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.layer-arrow { text-align: center; color: var(--color-neutral-500); font-size: var(--font-size-lg); line-height: 1; }
+
+/* ---------- Do / Dont ---------- */
+.dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md); }
+.dd-card { border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-neutral-0); }
+.dd-head { padding: var(--space-sm) var(--space-md); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); display: flex; align-items: center; gap: var(--space-sm); }
+.dd-head.is-dont { background: var(--color-danger-100); color: var(--color-danger-700); }
+.dd-head.is-do   { background: var(--color-success-100); color: var(--color-success-700); }
+.dd-tag { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: var(--radius-full); font-size: var(--font-size-xs); }
+.dd-tag.is-dont { background: var(--color-danger-600); color: var(--color-neutral-0); }
+.dd-tag.is-do   { background: var(--color-success-600); color: var(--color-neutral-0); }
+.dd-preview { padding: var(--space-md); min-height: 96px; display: flex; align-items: center; justify-content: center; }
+.dd-note { padding: 0 var(--space-md) var(--space-md); font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+.dd-rule { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); margin-bottom: var(--space-xs); }
+.dd-rule-msg { font-size: var(--font-size-sm); color: var(--color-neutral-700); margin-bottom: var(--space-sm); }
+.dd-block { margin-bottom: var(--space-lg); }
+
+/* mock chips for Do/Dont previews (expressed via inline style, not framework classes) */
+.mock-card { width: 200px; border-radius: var(--radius-md); background: var(--color-neutral-0); padding: var(--space-md); border: 1px solid var(--color-neutral-200); }
+.mock-card-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); }
+.mock-card-text { font-size: var(--font-size-xs); color: var(--color-neutral-500); }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--color-neutral-200); padding-top: var(--space-lg); margin-top: var(--space-2xl); }
+.footer-title { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-neutral-900); margin-bottom: var(--space-sm); }
+.footer-meta { font-size: var(--font-size-sm); color: var(--color-neutral-500); }
+.footer-meta a { color: var(--color-primary-600); text-decoration: none; }
+.footer-meta a:hover { text-decoration: underline; }
+
+.text-link { color: var(--color-primary-600); text-decoration: none; font-weight: var(--font-weight-medium); }
+.text-link:hover { text-decoration: underline; }
+
+/* ---------- responsive: < 768px ---------- */
+@media (max-width: 767px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: var(--space-md); padding-top: 72px; max-width: 100%; }
+  .topbar {
+    display: block; position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+    background: var(--color-neutral-0); border-bottom: 1px solid var(--color-neutral-200);
+  }
+  .topbar-head { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-md); }
+  .topbar-nav { display: flex; gap: var(--space-sm); overflow-x: auto; padding: 0 var(--space-md) var(--space-sm); }
+  .topbar-nav a { white-space: nowrap; font-size: var(--font-size-sm); color: var(--color-neutral-700); text-decoration: none; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-md); background: var(--color-neutral-100); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .dd-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- モバイル用トップナビ（<768px で表示） -->
+<div class="topbar">
+  <div class="topbar-head">
+    <span class="sidebar-logo">S</span>
+    <span class="sidebar-brand-name">Sevendot UI</span>
+  </div>
+  <nav class="topbar-nav" aria-label="モバイルナビゲーション">
+    <a href="#overview">概要</a>
+    <a href="#color">カラー</a>
+    <a href="#typography">タイポ</a>
+    <a href="#spacing">スペーシング</a>
+    <a href="#elevation">エレベーション</a>
+    <a href="#button">Button</a>
+    <a href="#textfield">TextField</a>
+    <a href="#card">Card</a>
+    <a href="#badge">Badge</a>
+    <a href="#tabs">Tabs</a>
+    <a href="#alert">Alert</a>
+    <a href="#dodont">Do / Don't</a>
+  </nav>
+</div>
+
+<div class="layout">
+
+  <!-- 左固定サイドバー -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-logo">S</span>
+      <span class="sidebar-brand-name">Sevendot UI</span>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">はじめに</div>
+      <a class="sidebar-nav-link" href="#hero">概要トップ</a>
+      <a class="sidebar-nav-link" href="#overview">AI-Ready 3層構造</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">Foundation</div>
+      <a class="sidebar-nav-link" href="#color">カラー</a>
+      <a class="sidebar-nav-link" href="#typography">タイポグラフィ</a>
+      <a class="sidebar-nav-link" href="#spacing">スペーシング</a>
+      <a class="sidebar-nav-link" href="#elevation">エレベーション / 角丸</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">Components</div>
+      <a class="sidebar-nav-link" href="#button">Button</a>
+      <a class="sidebar-nav-link" href="#textfield">TextField</a>
+      <a class="sidebar-nav-link" href="#card">Card</a>
+      <a class="sidebar-nav-link" href="#badge">Badge</a>
+      <a class="sidebar-nav-link" href="#tabs">Tabs</a>
+      <a class="sidebar-nav-link" href="#alert">Alert</a>
+    </div>
+
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-title">ガイドライン</div>
+      <a class="sidebar-nav-link" href="#dodont">Do / Don't</a>
+    </div>
+  </aside>
+
+  <!-- メインコンテンツ -->
+  <main class="main">
+
+    <!-- 1. ヒーロー -->
+    <section class="section hero" id="hero">
+      <h1 class="hero-title">Sevendot UI — <span class="accent">人間にも、AIにも、</span>読めるデザインシステム</h1>
+      <p class="hero-lead">デザイナーの判断基準を、憲法・仕様・検証の3層構造として明文化。人間が読んで理解でき、AIエージェントが読んで正しく実装できる、Indigoベースの実用デザインシステムです。</p>
+      <div class="hero-actions">
+        <a class="sv-btn sv-btn-primary sv-btn-md" href="https://github.com/osawa1177/sevendot-design-system" target="_blank" rel="noopener">GitHub リポジトリ</a>
+        <a class="sv-btn sv-btn-secondary sv-btn-md" href="#overview">3層構造を見る</a>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Components</div></div>
+        <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">Rules</div></div>
+        <div class="stat-card"><div class="stat-num">40+</div><div class="stat-label">Tokens</div></div>
+        <div class="stat-card"><div class="stat-num">MCP</div><div class="stat-label">Server</div></div>
+      </div>
+    </section>
+
+    <!-- 2. 概要: AI-Ready 3層構造 -->
+    <section class="section" id="overview">
+      <div class="section-eyebrow">Overview</div>
+      <h2 class="section-title">AI-Ready 3層構造</h2>
+      <p class="section-lead">「憲法 → 仕様 → 検証」の3層で、判断基準を人間にもAIにも読める形にしています。上位ほど人間向けの意図、下位ほど機械可読・自動検証に寄ります。</p>
+
+      <div class="layers">
+        <div class="layer">
+          <span class="layer-num">1</span>
+          <div class="layer-body">
+            <div class="layer-name">憲法 — DESIGN.md</div>
+            <div class="layer-desc">非交渉の10原則。AIが最初に必ず読む、意図とトーンのソース。</div>
+          </div>
+        </div>
+        <div class="layer-arrow" aria-hidden="true">↓</div>
+        <div class="layer">
+          <span class="layer-num">2</span>
+          <div class="layer-body">
+            <div class="layer-name">仕様 — contracts / tokens</div>
+            <div class="layer-desc">機械可読のコンポーネント契約とデザイントークン（色・余白・角丸・影のSSOT）。</div>
+          </div>
+        </div>
+        <div class="layer-arrow" aria-hidden="true">↓</div>
+        <div class="layer">
+          <span class="layer-num">3</span>
+          <div class="layer-body">
+            <div class="layer-name">検証 — lint / CI / check_rules</div>
+            <div class="layer-desc">禁止パターンを自動検知。違反はCIとlintで通さない、品質のゲート。</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subhead">読み込みモード</h3>
+      <table class="tbl">
+        <thead><tr><th>モード</th><th>読むもの</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>クイック</td><td>DESIGN.md のみ</td><td>単体UIの生成</td></tr>
+          <tr><td>標準</td><td>＋ 該当コンポーネントの contract / .md</td><td>画面単位の生成</td></tr>
+          <tr><td>MCP</td><td><code>get_token</code> / <code>get_ui_component</code> / <code>check_rules</code></td><td>ツール統合（推奨）</td></tr>
+          <tr><td>フル</td><td>全ファイル</td><td>新規構築時</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3. カラー -->
+    <section class="section" id="color">
+      <div class="section-eyebrow">Foundation</div>
+      <h2 class="section-title">カラー</h2>
+      <p class="section-lead">全カラーは <code>tokens/sevendot.tokens.json</code> を正とし、CSS変数として定義しています。1画面に使う有彩色は primary + semantic 2色までの「3-Color Rule」を守ります。</p>
+
+      <h3 class="subhead">Primary（Indigo）</h3>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-50)"></div><div class="swatch-meta"><div class="swatch-name">primary-50</div><div class="swatch-hex">#eef2ff</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-100)"></div><div class="swatch-meta"><div class="swatch-name">primary-100</div><div class="swatch-hex">#e0e7ff</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-300)"></div><div class="swatch-meta"><div class="swatch-name">primary-300</div><div class="swatch-hex">#a5b4fc</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-500)"></div><div class="swatch-meta"><div class="swatch-name">primary-500</div><div class="swatch-hex">#6366f1</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-600)"></div><div class="swatch-meta"><div class="swatch-name">primary-600</div><div class="swatch-hex">#4f46e5</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-primary-700)"></div><div class="swatch-meta"><div class="swatch-name">primary-700</div><div class="swatch-hex">#4338ca</div></div></div>
+      </div>
+
+      <h3 class="subhead">ステータスカラー（semantic）</h3>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-success-600)"></div><div class="swatch-meta"><div class="swatch-name">success-600</div><div class="swatch-hex">#16a34a</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-success-100)"></div><div class="swatch-meta"><div class="swatch-name">success-100</div><div class="swatch-hex">#dcfce7</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-warning-700)"></div><div class="swatch-meta"><div class="swatch-name">warning-700</div><div class="swatch-hex">#a16207</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-warning-100)"></div><div class="swatch-meta"><div class="swatch-name">warning-100</div><div class="swatch-hex">#fef9c3</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-danger-600)"></div><div class="swatch-meta"><div class="swatch-name">danger-600</div><div class="swatch-hex">#dc2626</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:var(--color-danger-100)"></div><div class="swatch-meta"><div class="swatch-name">danger-100</div><div class="swatch-hex">#fee2e2</div></div></div>
+      </div>
+
+      <h3 class="subhead">テキスト3階層</h3>
+      <table class="tbl">
+        <thead><tr><th>用途</th><th>トークン</th><th>プレビュー</th></tr></thead>
+        <tbody>
+          <tr><td>見出し・本文強調</td><td><code>neutral-900</code></td><td><span style="color:var(--color-neutral-900);font-weight:var(--font-weight-semibold)">主要テキスト Aa 亜</span></td></tr>
+          <tr><td>本文</td><td><code>neutral-700</code></td><td><span style="color:var(--color-neutral-700)">本文テキスト Aa 亜</span></td></tr>
+          <tr><td>補足</td><td><code>neutral-500</code></td><td><span style="color:var(--color-neutral-500)">補足テキスト Aa 亜</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 4. タイポグラフィ -->
+    <section class="section" id="typography">
+      <div class="section-eyebrow">Foundation</div>
+      <h2 class="section-title">タイポグラフィ</h2>
+      <p class="section-lead">フォントは system-ui / Hiragino Sans / Noto Sans JP のスタック。サイズは xs〜2xl の6段階、ウェイトは3種です。</p>
+
+      <h3 class="subhead">タイプスケール</h3>
+      <div class="panel">
+        <div class="type-row"><span class="type-token">2xl / 24px</span><span class="type-sample" style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-semibold)">構造として、伝わるデザイン</span></div>
+        <div class="type-row"><span class="type-token">xl / 20px</span><span class="type-sample" style="font-size:var(--font-size-xl);font-weight:var(--font-weight-semibold)">構造として、伝わるデザイン</span></div>
+        <div class="type-row"><span class="type-token">lg / 18px</span><span class="type-sample" style="font-size:var(--font-size-lg)">構造として、伝わるデザイン</span></div>
+        <div class="type-row"><span class="type-token">base / 16px</span><span class="type-sample" style="font-size:var(--font-size-base)">構造として、伝わるデザイン</span></div>
+        <div class="type-row"><span class="type-token">sm / 14px</span><span class="type-sample" style="font-size:var(--font-size-sm)">構造として、伝わるデザイン</span></div>
+        <div class="type-row"><span class="type-token">xs / 12px</span><span class="type-sample" style="font-size:var(--font-size-xs)">構造として、伝わるデザイン</span></div>
+      </div>
+
+      <h3 class="subhead">ウェイト</h3>
+      <div class="panel">
+        <div class="type-row"><span class="type-token">regular / 400</span><span class="type-sample" style="font-size:var(--font-size-lg);font-weight:var(--font-weight-regular)">Sevendot デザインシステム 亜</span></div>
+        <div class="type-row"><span class="type-token">medium / 500</span><span class="type-sample" style="font-size:var(--font-size-lg);font-weight:var(--font-weight-medium)">Sevendot デザインシステム 亜</span></div>
+        <div class="type-row"><span class="type-token">semibold / 600</span><span class="type-sample" style="font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)">Sevendot デザインシステム 亜</span></div>
+      </div>
+    </section>
+
+    <!-- 5. スペーシング -->
+    <section class="section" id="spacing">
+      <div class="section-eyebrow">Foundation</div>
+      <h2 class="section-title">スペーシング</h2>
+      <p class="section-lead">すべての余白は 4px グリッドの倍数のみ。半端な値（0.5, 1.5, 5, 7…）は lint で検知されます。</p>
+      <div class="panel">
+        <div class="ruler-row"><span class="ruler-token">xs — 4px</span><span class="ruler-bar" style="width:4px"></span></div>
+        <div class="ruler-row"><span class="ruler-token">sm — 8px</span><span class="ruler-bar" style="width:8px"></span></div>
+        <div class="ruler-row"><span class="ruler-token">md — 16px</span><span class="ruler-bar" style="width:16px"></span></div>
+        <div class="ruler-row"><span class="ruler-token">lg — 24px</span><span class="ruler-bar" style="width:24px"></span></div>
+        <div class="ruler-row"><span class="ruler-token">xl — 32px</span><span class="ruler-bar" style="width:32px"></span></div>
+        <div class="ruler-row"><span class="ruler-token">2xl — 48px</span><span class="ruler-bar" style="width:48px"></span></div>
+      </div>
+    </section>
+
+    <!-- 6. エレベーション / 角丸 -->
+    <section class="section" id="elevation">
+      <div class="section-eyebrow">Foundation</div>
+      <h2 class="section-title">エレベーション / 角丸</h2>
+      <p class="section-lead">影は控えめに。通常UIは sm / md まで、overlay はモーダル等オーバーレイ限定です（Minimal Elevation）。</p>
+
+      <h3 class="subhead">シャドウ</h3>
+      <div class="tile-grid">
+        <div class="tile sh-sm">shadow-sm</div>
+        <div class="tile sh-md">shadow-md</div>
+        <div class="tile sh-overlay">overlay</div>
+      </div>
+
+      <h3 class="subhead">角丸（radius）</h3>
+      <div class="tile-grid">
+        <div class="tile r-sm">sm / 4px</div>
+        <div class="tile r-md">md / 8px</div>
+        <div class="tile r-lg">lg / 12px</div>
+        <div class="tile r-full">full</div>
+      </div>
+    </section>
+
+    <!-- 7-1. Button -->
+    <section class="section" id="button">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Button</h2>
+      <p class="section-lead">variant 4種 × size 3種。primary は1画面に原則1つ。破壊的操作は danger を使います。</p>
+
+      <div class="demo demo-column">
+        <div>
+          <div class="demo-caption">variant（size = md）</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+            <button class="sv-btn sv-btn-primary sv-btn-md">保存する</button>
+            <button class="sv-btn sv-btn-secondary sv-btn-md">キャンセル</button>
+            <button class="sv-btn sv-btn-ghost sv-btn-md">詳細を見る</button>
+            <button class="sv-btn sv-btn-danger sv-btn-md">削除する</button>
+          </div>
+        </div>
+        <div>
+          <div class="demo-caption">size（variant = primary）</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+            <button class="sv-btn sv-btn-primary sv-btn-sm">Small</button>
+            <button class="sv-btn sv-btn-primary sv-btn-md">Medium</button>
+            <button class="sv-btn sv-btn-primary sv-btn-lg">Large</button>
+          </div>
+        </div>
+        <div>
+          <div class="demo-caption">disabled / fullWidth</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;width:100%">
+            <button class="sv-btn sv-btn-primary sv-btn-md" disabled>保存する</button>
+            <button class="sv-btn sv-btn-secondary sv-btn-md" disabled>キャンセル</button>
+          </div>
+          <div style="width:100%;margin-top:16px">
+            <button class="sv-btn sv-btn-primary sv-btn-md sv-btn-full">幅いっぱいの保存ボタン</button>
+          </div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Button variant="primary"&gt;保存する&lt;/Button&gt;
+&lt;Button variant="secondary"&gt;キャンセル&lt;/Button&gt;
+&lt;Button variant="ghost"&gt;詳細を見る&lt;/Button&gt;
+&lt;Button variant="danger"&gt;削除する&lt;/Button&gt;
+
+&lt;Button variant="primary" size="sm"&gt;Small&lt;/Button&gt;
+&lt;Button variant="primary" size="lg"&gt;Large&lt;/Button&gt;
+&lt;Button variant="primary" disabled&gt;保存する&lt;/Button&gt;
+&lt;Button variant="primary" fullWidth&gt;幅いっぱい&lt;/Button&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/button.contract.json</code></p>
+    </section>
+
+    <!-- 7-2. TextField -->
+    <section class="section" id="textfield">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">TextField</h2>
+      <p class="section-lead">label は必須。placeholder をラベル代わりにしません。通常 / helperText / error / disabled の4状態。</p>
+
+      <div class="demo">
+        <div class="sv-field">
+          <label class="sv-field-label" for="tf-1">メールアドレス</label>
+          <input class="sv-field-input" id="tf-1" type="email" placeholder="you@example.com">
+        </div>
+        <div class="sv-field">
+          <label class="sv-field-label" for="tf-2">表示名</label>
+          <input class="sv-field-input" id="tf-2" type="text" placeholder="山田 太郎">
+          <p class="sv-field-helper">サービス内で他のユーザーに表示されます。</p>
+        </div>
+        <div class="sv-field">
+          <label class="sv-field-label" for="tf-3">パスワード</label>
+          <input class="sv-field-input is-error" id="tf-3" type="password" aria-invalid="true" aria-describedby="tf-3-err" value="123">
+          <p class="sv-field-error" id="tf-3-err">8文字以上で入力してください。</p>
+        </div>
+        <div class="sv-field">
+          <label class="sv-field-label" for="tf-4">会員ID</label>
+          <input class="sv-field-input" id="tf-4" type="text" value="SD-000123" disabled>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;TextField label="メールアドレス" placeholder="you@example.com" /&gt;
+&lt;TextField label="表示名" helperText="サービス内で他のユーザーに表示されます。" /&gt;
+&lt;TextField label="パスワード" error="8文字以上で入力してください。" /&gt;
+&lt;TextField label="会員ID" value="SD-000123" disabled /&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/textfield.contract.json</code></p>
+    </section>
+
+    <!-- 7-3. Card -->
+    <section class="section" id="card">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Card</h2>
+      <p class="section-lead">border + rounded-lg のみ、影はデフォルトなし。interactive はホバーで shadow-md を付与します。CardHeader / CardBody で構成します。</p>
+
+      <div class="demo">
+        <div class="sv-card">
+          <div class="sv-card-header"><div class="sv-card-title">基本カード</div></div>
+          <div class="sv-card-body"><p class="sv-card-text">影を持たない、枠線ベースの静的カード。情報のまとまりを表現します。</p></div>
+        </div>
+        <div class="sv-card sv-card-interactive">
+          <div class="sv-card-header"><div class="sv-card-title">interactive カード</div></div>
+          <div class="sv-card-body"><p class="sv-card-text">カーソルを乗せると shadow-md で浮き上がります。一覧のリンクカード向け。</p></div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Card&gt;
+  &lt;CardHeader&gt;
+    &lt;h3 className="text-lg font-semibold text-neutral-900"&gt;基本カード&lt;/h3&gt;
+  &lt;/CardHeader&gt;
+  &lt;CardBody&gt;
+    &lt;p className="text-sm text-neutral-700"&gt;情報のまとまりを表現します。&lt;/p&gt;
+  &lt;/CardBody&gt;
+&lt;/Card&gt;
+
+&lt;Card interactive&gt; ... &lt;/Card&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/card.contract.json</code></p>
+    </section>
+
+    <!-- 7-4. Badge -->
+    <section class="section" id="badge">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Badge</h2>
+      <p class="section-lead">tone 5種。色は意味に応じて選び、装飾目的では選びません。</p>
+
+      <div class="demo">
+        <span class="sv-badge sv-badge-neutral">下書き</span>
+        <span class="sv-badge sv-badge-primary">新着</span>
+        <span class="sv-badge sv-badge-success">公開中</span>
+        <span class="sv-badge sv-badge-warning">確認待ち</span>
+        <span class="sv-badge sv-badge-danger">エラー</span>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Badge tone="neutral"&gt;下書き&lt;/Badge&gt;
+&lt;Badge tone="primary"&gt;新着&lt;/Badge&gt;
+&lt;Badge tone="success"&gt;公開中&lt;/Badge&gt;
+&lt;Badge tone="warning"&gt;確認待ち&lt;/Badge&gt;
+&lt;Badge tone="danger"&gt;エラー&lt;/Badge&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/badge.contract.json</code></p>
+    </section>
+
+    <!-- 7-5. Tabs -->
+    <section class="section" id="tabs">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Tabs</h2>
+      <p class="section-lead">下線インジケーターで選択状態を表現。下のデモは実際に切り替わります。</p>
+
+      <div class="demo demo-column">
+        <div style="width:100%">
+          <div class="sv-tabs-list" role="tablist" aria-label="サンプルタブ">
+            <button class="sv-tab is-selected" role="tab" type="button" aria-selected="true" aria-controls="tp-overview" id="tab-overview" onclick="selectTab(this)">概要</button>
+            <button class="sv-tab" role="tab" type="button" aria-selected="false" aria-controls="tp-spec" id="tab-spec" onclick="selectTab(this)">仕様</button>
+            <button class="sv-tab" role="tab" type="button" aria-selected="false" aria-controls="tp-history" id="tab-history" onclick="selectTab(this)">履歴</button>
+          </div>
+          <div class="sv-tabpanel" role="tabpanel" id="tp-overview" aria-labelledby="tab-overview">概要タブの内容です。プロジェクトの全体像をここに表示します。</div>
+          <div class="sv-tabpanel" role="tabpanel" id="tp-spec" aria-labelledby="tab-spec" hidden>仕様タブの内容です。機械可読の contract を参照します。</div>
+          <div class="sv-tabpanel" role="tabpanel" id="tp-history" aria-labelledby="tab-history" hidden>履歴タブの内容です。変更のタイムラインを表示します。</div>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Tabs
+  items={[
+    { id: "overview", label: "概要" },
+    { id: "spec", label: "仕様" },
+    { id: "history", label: "履歴" },
+  ]}
+  defaultValue="overview"
+  onChange={(id) =&gt; setActive(id)}
+/&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/tabs.contract.json</code></p>
+    </section>
+
+    <!-- 7-6. Alert -->
+    <section class="section" id="alert">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Alert</h2>
+      <p class="section-lead">tone 4種（info / success / warning / danger）。title 付きで状況を伝えます。danger / warning は role="alert"。</p>
+
+      <div class="demo demo-column">
+        <div class="sv-alert sv-alert-info" role="status">
+          <p class="sv-alert-title">お知らせ</p>
+          メンテナンスを 7月10日 2:00〜4:00 に予定しています。
+        </div>
+        <div class="sv-alert sv-alert-success" role="status">
+          <p class="sv-alert-title">保存しました</p>
+          変更内容はすべて保存されました。
+        </div>
+        <div class="sv-alert sv-alert-warning" role="alert">
+          <p class="sv-alert-title">確認してください</p>
+          未入力の必須項目が1件あります。
+        </div>
+        <div class="sv-alert sv-alert-danger" role="alert">
+          <p class="sv-alert-title">保存に失敗しました</p>
+          通信エラーが発生しました。時間をおいて再度お試しください。
+        </div>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-btn" type="button" aria-label="コードをコピー" onclick="copyCode(this)">コピー</button>
+        <pre><code>&lt;Alert tone="info" title="お知らせ"&gt;メンテナンスを予定しています。&lt;/Alert&gt;
+&lt;Alert tone="success" title="保存しました"&gt;変更内容を保存しました。&lt;/Alert&gt;
+&lt;Alert tone="warning" title="確認してください"&gt;必須項目が未入力です。&lt;/Alert&gt;
+&lt;Alert tone="danger" title="保存に失敗しました"&gt;通信エラーが発生しました。&lt;/Alert&gt;</code></pre>
+      </div>
+      <p class="spec-note">仕様詳細: <code>design/contracts/components/alert.contract.json</code></p>
+    </section>
+
+    <!-- 8. Do / Don't -->
+    <section class="section" id="dodont">
+      <div class="section-eyebrow">Guidelines</div>
+      <h2 class="section-title">Do / Don't</h2>
+      <p class="section-lead">rules.json の代表8ルールを、実際のビフォー / アフターで示します。左（Don't）は避けるべき実装、右（Do）が推奨です。</p>
+
+      <!-- 1 -->
+      <div class="dd-block">
+        <div class="dd-rule">1. DECOR_NO_CARD_COLOR_BAR</div>
+        <div class="dd-rule-msg">カード上部のカラーバーは禁止（AIっぽい装飾）。枠線のみで構成する。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <div class="mock-card" style="border-top:4px solid var(--color-primary-600)">
+                <div class="mock-card-title">プロジェクトA</div>
+                <div class="mock-card-text">上部にカラーバーのある装飾カード</div>
+              </div>
+            </div>
+            <div class="dd-note">上辺に太いカラーバーを付けている</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <div class="mock-card">
+                <div class="mock-card-title">プロジェクトA</div>
+                <div class="mock-card-text">枠線のみで構成した静かなカード</div>
+              </div>
+            </div>
+            <div class="dd-note">neutral-200 の枠線のみ</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="dd-block">
+        <div class="dd-rule">2. COLOR_NO_RAW_PALETTE</div>
+        <div class="dd-rule-msg">生のパレット色は禁止。primary / semantic のトークンを使う。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <button class="sv-btn sv-btn-md" style="background:#3b82f6;color:#fff">生の blue-500</button>
+            </div>
+            <div class="dd-note">意味を持たない生パレット色を直接指定</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <button class="sv-btn sv-btn-primary sv-btn-md">primary-600</button>
+            </div>
+            <div class="dd-note">セマンティックな primary トークン</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="dd-block">
+        <div class="dd-rule">3. ELEVATION_NO_HEAVY_SHADOW</div>
+        <div class="dd-rule-msg">shadow-lg 以上はオーバーレイ限定。通常UIは shadow-sm / md まで。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <div class="mock-card" style="box-shadow:0 20px 25px -5px rgb(0 0 0 / 0.25);border-color:transparent">
+                <div class="mock-card-title">重い影のカード</div>
+                <div class="mock-card-text">通常UIに強い影</div>
+              </div>
+            </div>
+            <div class="dd-note">通常カードに大きな影</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <div class="mock-card" style="box-shadow:var(--shadow-sm)">
+                <div class="mock-card-title">控えめな影のカード</div>
+                <div class="mock-card-text">shadow-sm で十分</div>
+              </div>
+            </div>
+            <div class="dd-note">shadow-sm の軽い立体感</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="dd-block">
+        <div class="dd-rule">4. FORM_NO_PLACEHOLDER_ONLY_LABEL</div>
+        <div class="dd-rule-msg">placeholder をラベル代わりにしない。label を必ず使う。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <div class="sv-field" style="width:100%">
+                <input class="sv-field-input" type="email" placeholder="メールアドレス">
+              </div>
+            </div>
+            <div class="dd-note">placeholder だけ。入力すると項目名が消える</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <div class="sv-field" style="width:100%">
+                <label class="sv-field-label" for="dd-mail">メールアドレス</label>
+                <input class="sv-field-input" id="dd-mail" type="email" placeholder="you@example.com">
+              </div>
+            </div>
+            <div class="dd-note">label が常に見える</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="dd-block">
+        <div class="dd-rule">5. TEXT_NO_PURE_BLACK</div>
+        <div class="dd-rule-msg">純黒は使わない。text-neutral-900 を使う。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <span style="color:#000000;font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)">純黒 #000000 の見出し</span>
+            </div>
+            <div class="dd-note">コントラストが硬く目が疲れる</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <span style="color:var(--color-neutral-900);font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)">neutral-900 の見出し</span>
+            </div>
+            <div class="dd-note">やわらかい濃紺グレー</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="dd-block">
+        <div class="dd-rule">6. DECOR_NO_GRADIENT_BG</div>
+        <div class="dd-rule-msg">グラデーション背景は原則禁止。単色の neutral / primary を使う。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <div class="mock-card" style="background:linear-gradient(135deg,#6366f1,#dc2626);border-color:transparent">
+                <div class="mock-card-title" style="color:#fff">派手なグラデーション</div>
+                <div class="mock-card-text" style="color:#f1f5f9">意味のない装飾背景</div>
+              </div>
+            </div>
+            <div class="dd-note">乱用されたグラデーション背景</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <div class="mock-card" style="background:var(--color-primary-50);border-color:transparent">
+                <div class="mock-card-title">単色の落ち着いた背景</div>
+                <div class="mock-card-text">primary-50 のトーン</div>
+              </div>
+            </div>
+            <div class="dd-note">単色トークンで統一</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="dd-block">
+        <div class="dd-rule">7. UI_NO_EMOJI_LABEL</div>
+        <div class="dd-rule-msg">ボタン・見出し等のUIラベルに絵文字を使わない。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <button class="sv-btn sv-btn-primary sv-btn-md">&#128190; ほぞん！！</button>
+            </div>
+            <div class="dd-note">絵文字と過剰な感嘆符</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <button class="sv-btn sv-btn-primary sv-btn-md">保存する</button>
+            </div>
+            <div class="dd-note">簡潔・敬体のラベル</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="dd-block">
+        <div class="dd-rule">8. COMP_NO_REINVENT</div>
+        <div class="dd-rule-msg">@sevendot/ui に存在する部品を素のHTMLで再発明しない。</div>
+        <div class="dd-grid">
+          <div class="dd-card">
+            <div class="dd-head is-dont"><span class="dd-tag is-dont" aria-hidden="true">×</span>Don't</div>
+            <div class="dd-preview">
+              <span style="display:inline-block;padding:9px 14px;background:#4f46e5;color:#fff;border-radius:3px;font-size:13px;box-shadow:0 20px 25px -5px rgb(0 0 0 / 0.2)">自作の &lt;div&gt; ボタン</span>
+            </div>
+            <div class="dd-note">半端な余白・角丸・影で似せた独自実装</div>
+          </div>
+          <div class="dd-card">
+            <div class="dd-head is-do"><span class="dd-tag is-do" aria-hidden="true">✓</span>Do</div>
+            <div class="dd-preview">
+              <button class="sv-btn sv-btn-primary sv-btn-md">Button コンポーネント</button>
+            </div>
+            <div class="dd-note">import { Button } from "@sevendot/ui"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. フッター -->
+    <footer class="footer">
+      <div class="footer-title">Sevendot UI — デザイナーの判断基準を、構造として。</div>
+      <p class="footer-meta">
+        <a href="https://github.com/osawa1177/sevendot-design-system" target="_blank" rel="noopener">GitHub: osawa1177/sevendot-design-system</a>
+      </p>
+      <p class="footer-meta" style="margin-top:8px">
+        &copy; 2026 Sevendot UI. MIT License. — 名前空間 <code>@sevendot/ui</code> は仮名です。
+      </p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // コードコピー（navigator.clipboard、成功でチェック表示→2秒で復帰）
+  function copyCode(btn) {
+    var wrap = btn.closest('.code-wrap');
+    var code = wrap ? wrap.querySelector('code') : null;
+    if (!code) return;
+    var text = code.innerText;
+    var done = function () {
+      var original = btn.getAttribute('data-label') || 'コピー';
+      btn.classList.add('is-done');
+      btn.textContent = '✓ コピーしました';
+      setTimeout(function () {
+        btn.classList.remove('is-done');
+        btn.textContent = original;
+      }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  // Tabs 切替
+  function selectTab(btn) {
+    var list = btn.closest('.sv-tabs-list');
+    var container = btn.parentElement.parentElement;
+    var tabs = list.querySelectorAll('.sv-tab');
+    tabs.forEach(function (t) {
+      var selected = (t === btn);
+      t.classList.toggle('is-selected', selected);
+      t.setAttribute('aria-selected', selected ? 'true' : 'false');
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !selected;
+    });
+  }
+
+  // サイドバー: スクロールで現在地ハイライト
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.sidebar-nav-link'));
+    var map = {};
+    links.forEach(function (l) {
+      var id = l.getAttribute('href').slice(1);
+      var sec = document.getElementById(id);
+      if (sec) map[id] = l;
+    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove('is-active'); });
+          var active = map[e.target.id];
+          if (active) active.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    Object.keys(map).forEach(function (id) {
+      var sec = document.getElementById(id);
+      if (sec) observer.observe(sec);
+    });
+  })();
+</script>
+</body>
+</html>
